@@ -14,8 +14,8 @@
             padding: 0;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center; 
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         /* Главный контейнер */
@@ -26,9 +26,11 @@
             justify-content: center; 
             gap: 80px; 
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 40px;
             box-sizing: border-box;
+            flex: 1;
         }
 
         /* --- ЛЕВАЯ ЧАСТЬ --- */
@@ -37,35 +39,58 @@
             flex-direction: column;
             align-items: flex-start; 
             gap: 20px;
-            width: 400px;
+            width: 450px;
+            flex-shrink: 0; /* Запрещаем сжиматься */
         }
 
-        /* Огромный логотип с анимацией вращения */
+        /* ОГРОМНЫЙ ЛОГОТИП С ПОДСВЕТКОЙ */
         .logo {
-            width: 350px;
-            height: 350px;
+            width: 400px;
+            height: 400px;
             border-radius: 50%;
             margin-bottom: 10px;
             object-fit: cover;
-            box-shadow: 0 0 30px rgba(255, 102, 0, 0.2);
+            box-shadow: 0 0 50px rgba(255, 102, 0, 0.4);
+            animation: spin 10s linear infinite;
+            animation-play-state: paused;
         }
 
-        /* Анимация вращения */
+        .logo.playing {
+            animation-play-state: running;
+        }
+
         @keyframes spin {
             100% { transform: rotate(360deg); }
-        }
-
-        /* Класс, который добавляется при воспроизведении */
-        .logo.playing {
-            animation: spin 8s linear infinite;
         }
 
         .about-text {
             font-size: 16px;
             line-height: 1.6;
             color: #ccc;
-            font-weight: normal; /* Убрали жирность */
         }
+
+        /* Текст с новой строки */
+        .about-text p {
+            margin: 0 0 15px 0; 
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: transparent;
+            color: #ff6600;
+            border: 1px solid #ff6600;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .share-btn:hover { background-color: #ff6600; color: #fff; }
+        .share-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
         /* --- ПРАВАЯ ЧАСТЬ --- */
         .right-section {
@@ -73,7 +98,8 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            width: 600px;
+            width: 650px;
+            flex-shrink: 0;
         }
 
         /* Кассета */
@@ -103,14 +129,10 @@
             text-transform: uppercase;
             margin-bottom: 5px;
         }
-        
         .on-air-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #ff4d4d;
-            border-radius: 50%;
-            margin-right: 8px;
-            box-shadow: 0 0 8px #ff4d4d;
+            width: 8px; height: 8px;
+            background-color: #ff4d4d; border-radius: 50%;
+            margin-right: 8px; box-shadow: 0 0 8px #ff4d4d;
             animation: pulse 1.5s infinite;
         }
 
@@ -120,118 +142,59 @@
             100% { transform: scale(0.95); opacity: 1; }
         }
 
-        .track-label {
-            font-size: 12px;
-            color: #888;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-        
-        .track-title {
-            font-size: 22px;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 15px;
-            min-height: 30px;
-        }
+        .track-label { font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+        .track-title { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 15px; min-height: 30px; }
 
         /* Кнопка Play */
         .play-btn {
             background: linear-gradient(135deg, #ff6600, #ff3300);
-            border: none;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.2s;
-            box-shadow: 0 5px 20px rgba(255, 102, 0, 0.4);
+            border: none; width: 70px; height: 70px; border-radius: 50%;
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            transition: transform 0.2s; box-shadow: 0 5px 20px rgba(255, 102, 0, 0.4);
             margin-bottom: 15px;
         }
         .play-btn:hover { transform: scale(1.1); }
         .play-btn svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
         .play-btn.playing svg { margin-left: 0; }
 
-        /* ЭКВАЛАЙЗЕР (Визуализатор) */
-        .equalizer {
-            display: flex;
-            gap: 5px;
-            height: 25px;
-            align-items: flex-end;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        .bar {
-            width: 6px;
-            background-color: #ff6600;
-            border-radius: 3px;
-            height: 5px; /* Базовая высота */
-        }
-
-        /* Анимация полосок */
+        /* Визуальный эквалайзер */
+        .equalizer { display: flex; gap: 5px; height: 25px; align-items: flex-end; justify-content: center; margin-bottom: 15px; }
+        .bar { width: 6px; background-color: #ff6600; border-radius: 3px; height: 5px; }
         .playing .bar:nth-child(1) { animation: bounce 0.8s ease-in-out infinite alternate; }
         .playing .bar:nth-child(2) { animation: bounce 0.6s ease-in-out infinite alternate 0.2s; }
         .playing .bar:nth-child(3) { animation: bounce 0.9s ease-in-out infinite alternate 0.4s; }
         .playing .bar:nth-child(4) { animation: bounce 0.7s ease-in-out infinite alternate 0.1s; }
         .playing .bar:nth-child(5) { animation: bounce 0.5s ease-in-out infinite alternate 0.3s; }
-
-        @keyframes bounce {
-            0% { height: 5px; }
-            100% { height: 25px; }
-        }
+        @keyframes bounce { 0% { height: 5px; } 100% { height: 25px; } }
 
         /* Громкость */
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #888;
-        }
+        .volume-control { display: flex; align-items: center; gap: 10px; color: #888; }
         .volume-control svg { width: 18px; height: 18px; fill: #888; }
-        input[type=range] {
-            -webkit-appearance: none;
-            width: 100px;
-            background: transparent;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 12px;
-            width: 12px;
-            border-radius: 50%;
-            background: #ff6600;
-            cursor: pointer;
-            margin-top: -4px;
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #333;
-            border-radius: 2px;
+        input[type=range] { -webkit-appearance: none; width: 100px; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: #ff6600; cursor: pointer; margin-top: -4px; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #333; border-radius: 2px; }
+
+        /* --- ФУТЕР --- */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+            font-size: 14px;
         }
 
-        /* --- ТЕЛЕФОНЫ --- */
-        @media (max-width: 900px) {
+        /* --- ТЕЛЕФОНЫ (ТОЛЬКО ДЛЯ УЗКИХ ЭКРАНОВ) --- */
+        @media (max-width: 1000px) {
             .main-container {
                 flex-direction: column;
                 padding: 20px;
                 gap: 40px;
             }
-            .left-section {
+            .left-section, .right-section {
+                width: 100%;
                 align-items: center;
                 text-align: center;
-                width: 100%;
             }
-            .right-section {
-                width: 100%;
-            }
-            .logo {
-                width: 250px; /* На телефоне чуть меньше, чтобы влезло */
-                height: 250px;
-            }
+            .logo { width: 300px; height: 300px; }
         }
     </style>
 </head>
@@ -241,17 +204,21 @@
         
         <!-- ЛЕВАЯ ЧАСТЬ -->
         <div class="left-section">
-            <!-- Точное имя файла -->
             <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo" id="main-logo">
             
             <div class="about-text">
-                TT Radio — твой личный портал в мир звука. Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.
+                <p><strong>TT Radio — твой личный портал в мир звука.</strong></p>
+                <p>Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.</p>
             </div>
+
+            <button class="share-btn" onclick="shareSite()">
+                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+                Поделиться
+            </button>
         </div>
 
         <!-- ПРАВАЯ ЧАСТЬ -->
         <div class="right-section">
-            <!-- Точное имя файла -->
             <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
             
             <div class="player-box" id="player-container">
@@ -268,16 +235,10 @@
                     <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
 
-                <!-- Визуальный эквалайзер -->
                 <div class="equalizer">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
+                    <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
                 </div>
 
-                <!-- Ползунок громкости -->
                 <div class="volume-control">
                     <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                     <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
@@ -286,6 +247,11 @@
         </div>
 
     </div>
+
+    <!-- ФУТЕР С 2026 ГОДОМ -->
+    <footer class="footer">
+        &copy; 2026 TT Radio. Все права защищены.
+    </footer>
 
     <!-- Скрипт плеера -->
     <script>
@@ -305,7 +271,6 @@
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
                 
-                // Включаем вращение логотипа и эквалайзер
                 mainLogo.classList.add('playing');
                 playerContainer.classList.add('playing');
             } else {
@@ -314,7 +279,6 @@
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
                 
-                // Выключаем вращение логотипа и эквалайзер
                 mainLogo.classList.remove('playing');
                 playerContainer.classList.remove('playing');
             }
@@ -323,6 +287,14 @@
         volumeSlider.addEventListener('input', (e) => {
             audio.volume = e.target.value;
         });
+
+        function shareSite() {
+            if (navigator.share) {
+                navigator.share({ title: 'TT Radio', url: window.location.href }).catch(console.error);
+            } else {
+                alert('Скопируй ссылку: ' + window.location.href);
+            }
+        }
 
         function fetchTrackInfo() {
             fetch('https://radio.tt-radio.netcraze.pro/status-json.xsl')
