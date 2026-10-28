@@ -5,148 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TT Radio - Trance from Keenetic</title>
     <style>
+        /* Настройка фона */
         body {
-            background-color: #121212;
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            /* Кассета становится фоном на весь экран */
+            background: linear-gradient(rgba(18, 18, 18, 0.75), rgba(18, 18, 18, 0.9)), 
+                        url('TT%20Radio%20fon.png') no-repeat center center fixed;
+            background-size: cover;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Кассета на весь экран */
-        .full-banner {
-            width: 100%;
-            display: block;
-        }
-        .full-banner img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Основной контейнер (две колонки) */
-        .content-wrapper {
+        /* Главный контейнер по центру */
+        .main-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
+            gap: 50px;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px;
             padding: 40px 20px;
             box-sizing: border-box;
-            gap: 40px;
         }
 
-        /* Левая колонка (Логотип + Текст) */
-        .left-column {
-            flex: 1;
-            min-width: 300px;
+        /* Левая часть (Логотип и текст) */
+        .left-side {
             display: flex;
             flex-direction: column;
             align-items: center;
+            flex: 1;
+            min-width: 320px;
         }
 
-        .big-logo {
+        /* Огромный логотип */
+        .huge-logo {
             width: 100%;
-            max-width: 350px; /* Размер логотипа */
+            max-width: 450px; /* Сделали логотип большим */
             height: auto;
             border-radius: 50%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            margin-bottom: 30px;
-            border: 4px solid #222;
+            box-shadow: 0 0 40px rgba(255, 102, 0, 0.3); /* Оранжевое свечение */
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .huge-logo:hover {
+            transform: scale(1.02); /* Легкая анимация при наведении */
         }
 
+        /* Текст под логотипом */
         .about-text {
+            margin-top: 30px;
             text-align: center;
-            color: #bbb;
-            font-size: 16px;
+            font-size: 18px;
             line-height: 1.6;
-            background-color: #1e1e1e;
-            padding: 20px;
-            border-radius: 12px;
+            color: #ddd;
+            background: rgba(20, 20, 20, 0.6); /* Полупрозрачный фон */
+            backdrop-filter: blur(10px); /* Эффект стекла */
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             width: 100%;
-            box-sizing: border-box;
+            max-width: 400px;
         }
 
-        /* Правая колонка (Плеер) */
-        .right-column {
+        /* Правая часть (Плеер) */
+        .right-side {
             flex: 1;
-            min-width: 300px;
+            min-width: 320px;
             display: flex;
-            flex-direction: column;
             justify-content: center;
         }
 
-        /* Красивый плеер */
+        /* Стеклянный плеер */
         .player-box {
-            background: linear-gradient(145deg, #1e1e1e, #151515);
-            border-radius: 20px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-            border: 1px solid #333;
+            background: rgba(20, 20, 20, 0.7); /* Полупрозрачный фон */
+            backdrop-filter: blur(15px); /* Эффект стекла */
+            border-radius: 25px;
+            padding: 50px 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            width: 100%;
+            max-width: 400px;
             position: relative;
-            overflow: hidden;
         }
 
-        /* Светящийся индикатор эфира */
+        /* Индикатор эфира */
         .on-air {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 25px;
+            left: 25px;
             display: flex;
             align-items: center;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
-            color: #ff3333;
+            color: #ff4d4d;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .on-air-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #ff3333;
+            width: 12px;
+            height: 12px;
+            background-color: #ff4d4d;
             border-radius: 50%;
-            margin-right: 8px;
-            box-shadow: 0 0 10px #ff3333;
+            margin-right: 10px;
+            box-shadow: 0 0 15px #ff4d4d;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
             0% { transform: scale(0.95); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.6; }
             100% { transform: scale(0.95); opacity: 1; }
         }
 
-        /* Название трека */
+        /* Информация о треке */
         .track-info {
-            margin-bottom: 30px;
-            margin-top: 20px;
+            margin-top: 30px;
+            margin-bottom: 40px;
         }
         .track-label {
-            font-size: 12px;
-            color: #888;
+            font-size: 14px;
+            color: #aaa;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
         }
         .track-title {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: 600;
             color: #fff;
-            min-height: 30px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            min-height: 35px;
         }
 
-        /* Кнопка Play */
+        /* Огромная кнопка Play */
         .play-btn {
-            background: linear-gradient(135deg, #ff6600, #ff4400);
+            background: linear-gradient(135deg, #ff6600, #ff3300);
             border: none;
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -154,46 +159,42 @@
             align-items: center;
             margin: 0 auto;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 5px 20px rgba(255, 102, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 102, 0, 0.5);
         }
         .play-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 102, 0, 0.6);
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(255, 102, 0, 0.7);
         }
         .play-btn svg {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             fill: white;
-            margin-left: 5px; /* Сдвиг иконки play для визуального центра */
+            margin-left: 6px;
         }
         .play-btn.playing svg {
-            margin-left: 0; /* Убираем сдвиг для паузы */
+            margin-left: 0;
         }
     </style>
 </head>
 <body>
 
-    <!-- Кассета во всю ширину -->
-    <div class="full-banner">
-        <img src="TT%20Radio%20fon.png" alt="TT Radio Banner">
-    </div>
-
-    <!-- Основной контент -->
-    <div class="content-wrapper">
+    <!-- Основной контейнер -->
+    <div class="main-container">
         
-        <!-- Левая колонка -->
-        <div class="left-column">
-            <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="big-logo">
+        <!-- Левая колонка: Логотип и текст -->
+        <div class="left-side">
+            <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="huge-logo">
+            
             <div class="about-text">
-                <!-- ТУТ МОЖЕШЬ НАПИСАТЬ ПАРУ СЛОВ -->
+                <!-- Твой текст здесь -->
                 Добро пожаловать на волну TT Radio!<br>
                 Лучший транс, психоделика и chill-out.<br>
                 Настраивайся на космос и наслаждайся эфиром.
             </div>
         </div>
 
-        <!-- Правая колонка (Плеер) -->
-        <div class="right-column">
+        <!-- Правая колонка: Плеер -->
+        <div class="right-side">
             <div class="player-box">
                 <div class="on-air">
                     <div class="on-air-dot"></div> В эфире
@@ -204,13 +205,10 @@
                     <div class="track-title" id="track-title">Загрузка...</div>
                 </div>
 
-                <!-- Аудио тег скрыт, мы управляем им через JS -->
                 <audio id="radio-stream" src="https://radio.tt-radio.netcraze.pro/TT_Radio.mp3" preload="none"></audio>
                 
                 <button class="play-btn" id="play-button">
-                    <!-- Иконка Play (SVG) -->
                     <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    <!-- Иконка Pause (SVG) скрыта по умолчанию -->
                     <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
             </div>
@@ -218,7 +216,7 @@
 
     </div>
 
-    <!-- Скрипт для управления плеером и получения названий -->
+    <!-- Скрипт плеера и названий -->
     <script>
         const audio = document.getElementById('radio-stream');
         const playBtn = document.getElementById('play-button');
@@ -226,7 +224,6 @@
         const pauseIcon = document.getElementById('pause-icon');
         const trackTitle = document.getElementById('track-title');
 
-        // Управление Play/Pause
         playBtn.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play();
@@ -241,16 +238,11 @@
             }
         });
 
-        // Функция получения названия трека из Icecast
-        // ВНИМАНИЕ: Если Icecast не разрешает CORS (что часто бывает), 
-        // название может не загрузиться. Мы добавили обработку ошибок.
         function fetchTrackInfo() {
-            // Используем JSON API Icecast. Если Keenetic Cloud блокирует, попробуем напрямую.
             fetch('https://radio.tt-radio.netcraze.pro/status-json.xsl')
                 .then(response => response.json())
                 .then(data => {
                     try {
-                        // Icecast возвращает разные структуры, ищем поле title
                         let title = data.icestats.source.title;
                         if (title && title !== "Unknown") {
                             trackTitle.innerText = title;
@@ -262,15 +254,12 @@
                     }
                 })
                 .catch(error => {
-                    console.log('Ошибка получения метаданных (возможно CORS):', error);
-                    // Если не удалось получить, просто показываем название станции
                     trackTitle.innerText = "TT Radio Live";
                 });
         }
 
-        // Обновляем название каждые 5 секунд
         setInterval(fetchTrackInfo, 5000);
-        fetchTrackInfo(); // Первый запуск
+        fetchTrackInfo();
     </script>
 
 </body>
