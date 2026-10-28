@@ -9,47 +9,92 @@
             background-color: #121212;
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0;
-            padding: 20px;
+            min-height: 100vh;
         }
-        .banner {
+        
+        /* Шапка сайта: логотип слева, название рядом */
+        .header {
             width: 100%;
-            max-width: 800px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            max-width: 1200px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
+        
+        /* Логотип в левом верхнем углу */
         .logo {
-            width: 250px;
-            height: 250px;
+            width: 60px; 
+            height: 60px;
             border-radius: 50%;
-            margin-top: -100px;
-            border: 5px solid #121212;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            object-fit: cover;
+            border: 2px solid #333;
         }
-        h1 {
-            margin-top: 10px;
-            font-size: 28px;
+        
+        .site-title {
+            font-size: 20px;
+            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin: 0;
         }
-        p {
-            color: #aaa;
+
+        /* Основной блок по центру */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 960px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        /* Контейнер для кассеты с пропорциями 16:9 */
+        .banner-container {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Задаем жесткие пропорции 16:9 */
+            background-color: #000;
+            border-radius: 15px;
+            overflow: hidden; /* Обрезаем все, что вылезает */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 30px;
         }
+        
+        /* Сама картинка кассеты вписывается в контейнер */
+        .banner {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Вписываем картинку целиком, без искажений */
+        }
+
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        /* Кнопка */
         .play-button {
             background-color: #ff6600;
             color: white;
             text-decoration: none;
-            padding: 15px 40px;
-            font-size: 20px;
+            padding: 15px 50px;
+            font-size: 22px;
             font-weight: bold;
             border-radius: 50px;
             transition: background-color 0.3s, transform 0.2s;
             box-shadow: 0 4px 15px rgba(255, 102, 0, 0.4);
+            display: inline-block;
         }
         .play-button:hover {
             background-color: #ff8533;
@@ -59,14 +104,22 @@
 </head>
 <body>
 
-    <!-- Здесь я поменял названия картинок на твои -->
-    <img src="TT%20Radio%20fon.png" alt="TT Radio Banner" class="banner">
-    <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo">
+    <!-- Шапка с логотипом слева -->
+    <div class="header">
+        <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo">
+        <h1 class="site-title">TT Radio</h1>
+    </div>
 
-    <h1>TT Radio</h1>
-    <p>Транс от Keenetic</p>
+    <!-- Основная часть -->
+    <div class="main-content">
+        <div class="banner-container">
+            <img src="TT%20Radio%20fon.png" alt="TT Radio Banner" class="banner">
+        </div>
+        
+        <p class="subtitle">Транс от Keenetic</p>
 
-    <a href="https://radio.tt-radio.netcraze.ru/TT_Radio.mp3" class="play-button" target="_blank">▶ Слушать эфир</a>
+        <a href="https://radio.tt-radio.netcraze.pro/TT_Radio.mp3" class="play-button" target="_blank">▶ Слушать эфир</a>
+    </div>
 
 </body>
 </html>
