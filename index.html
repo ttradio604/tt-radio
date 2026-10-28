@@ -17,27 +17,26 @@
             overflow-x: hidden;
         }
 
-        /* Главный контейнер */
         .layout-container {
             display: flex;
-            justify-content: space-between; /* Разносит левую и правую части */
+            justify-content: space-between;
             align-items: flex-start; 
             width: 100%;
-            max-width: 1600px; /* Сделали чуть шире */
+            max-width: 1600px;
             margin: 0 auto;
             padding: 40px 60px; 
             box-sizing: border-box;
             flex: 1; 
         }
 
-        /* --- ЛЕВАЯ ЧАСТЬ (Логотип и текст) --- */
+        /* --- ЛЕВАЯ ЧАСТЬ --- */
         .left-panel {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Жестко прижимаем всё влево */
+            align-items: flex-start; 
             text-align: left;
             gap: 30px;
-            max-width: 450px; /* Увеличили ширину блока, чтобы текст не ломался по буквам */
+            max-width: 450px; 
             flex-shrink: 0; 
         }
 
@@ -51,7 +50,6 @@
             align-items: center;
         }
 
-        /* Логотип */
         .logo {
             width: 100%;
             height: 100%;
@@ -59,7 +57,6 @@
             transform: scale(1.6); 
         }
 
-        /* Класс для вращения */
         .logo.spinning {
             animation: spin 10s linear infinite;
         }
@@ -68,7 +65,6 @@
             100% { transform: scale(1.6) rotate(360deg); }
         }
 
-        /* Текст */
         .about-text {
             color: #ccc;
             line-height: 1.6;
@@ -77,7 +73,34 @@
             width: 100%;
         }
 
-        /* --- ПРАВАЯ ЧАСТЬ (Кассета и плеер) --- */
+        /* --- КНОПКА ПОДЕЛИТЬСЯ --- */
+        .share-btn {
+            background-color: transparent;
+            color: #ff6600;
+            border: 1px solid #ff6600;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background-color: #ff6600;
+            color: black;
+        }
+
+        .share-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* --- ПРАВАЯ ЧАСТЬ --- */
         .right-panel {
             flex: 1; 
             display: flex;
@@ -143,6 +166,43 @@
             min-height: 25px;
         }
 
+        /* --- ЭКВАЛАЙЗЕР --- */
+        .equalizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 25px;
+            margin-bottom: 15px;
+        }
+
+        .bar {
+            width: 6px;
+            background-color: #ff6600;
+            height: 100%;
+            transform-origin: bottom;
+            animation: bounce 1s ease-in-out infinite alternate;
+            animation-play-state: paused; /* Изначально остановлен */
+            border-radius: 3px;
+        }
+
+        /* Задержки для каждого столбика, чтобы они двигались вразнобой */
+        .bar:nth-child(1) { animation-delay: 0.1s; }
+        .bar:nth-child(2) { animation-delay: 0.3s; }
+        .bar:nth-child(3) { animation-delay: 0.0s; }
+        .bar:nth-child(4) { animation-delay: 0.4s; }
+        .bar:nth-child(5) { animation-delay: 0.2s; }
+
+        /* Класс, который запускает анимацию */
+        .equalizer.playing .bar {
+            animation-play-state: running;
+        }
+
+        @keyframes bounce {
+            0% { transform: scaleY(0.2); }
+            100% { transform: scaleY(1); }
+        }
+
+        /* --- КНОПКА PLAY --- */
         .play-btn {
             background: linear-gradient(135deg, #ff6600, #ff3300);
             border: none;
@@ -221,6 +281,7 @@
             }
             .about-text { text-align: center; }
             .logo-container { width: 250px; height: 250px; }
+            .share-btn { margin: 0 auto; }
         }
     </style>
 </head>
@@ -234,11 +295,16 @@
                 <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo" id="logo-image">
             </div>
             
-            <!-- Текст в две строки, как ты просил -->
             <div class="about-text">
                 TT Radio — твой личный портал в мир звука.<br>
                 Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.
             </div>
+
+            <!-- Кнопка Поделиться -->
+            <button class="share-btn" onclick="shareRadio()">
+                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+                Поделиться
+            </button>
         </div>
 
         <!-- ПРАВАЯ ЧАСТЬ -->
@@ -254,6 +320,15 @@
                 
                 <audio id="radio-stream" src="https://radio.tt-radio.netcraze.pro/TT_Radio.mp3" preload="none"></audio>
                 
+                <!-- Эквалайзер -->
+                <div class="equalizer" id="equalizer">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+
                 <button class="play-btn" id="play-button">
                     <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
@@ -282,6 +357,7 @@
         const trackTitle = document.getElementById('track-title');
         const volumeControl = document.getElementById('volume-control');
         const logoImage = document.getElementById('logo-image'); 
+        const equalizer = document.getElementById('equalizer'); // Получаем эквалайзер
 
         audio.volume = volumeControl.value;
 
@@ -296,14 +372,39 @@
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
                 logoImage.classList.add('spinning'); 
+                equalizer.classList.add('playing'); // Запускаем эквалайзер
             } else {
                 audio.pause();
                 playIcon.style.display = 'block';
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
                 logoImage.classList.remove('spinning'); 
+                equalizer.classList.remove('playing'); // Останавливаем эквалайзер
             }
         });
+
+        // Функция "Поделиться"
+        function shareRadio() {
+            const url = window.location.href;
+            const title = 'TT Radio - Trance from Keenetic';
+            const text = 'Слушай лучшее транс-радио прямо сейчас!';
+
+            if (navigator.share) {
+                // Для мобильных устройств и современных браузеров
+                navigator.share({
+                    title: title,
+                    text: text,
+                    url: url
+                }).catch(console.error);
+            } else {
+                // Для ПК (копирование в буфер)
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Ссылка на радио скопирована в буфер обмена!');
+                }).catch(err => {
+                    console.error('Ошибка копирования: ', err);
+                });
+            }
+        }
 
         function fetchTrackInfo() {
             fetch('https://radio.tt-radio.netcraze.pro/status-json.xsl')
