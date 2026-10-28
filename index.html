@@ -13,19 +13,20 @@
             padding: 0;
             min-height: 100vh;
             display: flex;
-            justify-content: center; /* Центрируем сам контейнер */
+            justify-content: center; /* Центрируем весь контент */
             align-items: center; 
         }
 
         /* Главный контейнер */
         .main-container {
             display: flex;
-            justify-content: space-between; /* Расталкиваем левую и правую часть по краям */
-            align-items: center; /* Центрируем по вертикали */
-            gap: 40px; 
+            flex-direction: row;
+            align-items: center; 
+            justify-content: center; 
+            gap: 50px; 
             width: 100%;
-            max-width: 1400px; /* Ширина всего контента */
-            padding: 40px 5%; /* Отступы по бокам (5% слева и справа) */
+            max-width: 1200px;
+            padding: 40px;
             box-sizing: border-box;
         }
 
@@ -33,26 +34,23 @@
         .left-section {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Прижимаем текст и кнопку к левому краю */
+            align-items: flex-start; 
             gap: 20px;
-            flex: 0 1 400px; /* Занимает около 400px, не растягивается сильно */
+            flex: 1; 
+            max-width: 400px;
         }
 
-        /* Логотип */
         .logo {
-            width: 180px;
+            width: 150px;
             height: auto;
             border-radius: 50%;
             margin-bottom: 10px;
-            /* Убрали свечение */
         }
 
-        /* Текст описания */
         .about-text {
             font-size: 16px;
             line-height: 1.6;
             color: #ccc;
-            text-align: left; /* Текст выровнен по левому краю */
         }
 
         .about-text strong {
@@ -62,7 +60,6 @@
             margin-bottom: 10px;
         }
 
-        /* Кнопка Поделиться */
         .share-btn {
             display: inline-flex;
             align-items: center;
@@ -95,15 +92,15 @@
         .right-section {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Кассета и плеер по центру друг друга */
+            align-items: center;
             gap: 30px;
-            flex: 0 1 650px; /* Чуть больше места под кассету */
+            flex: 1.2; 
         }
 
         /* Кассета */
         .cassette-img {
             width: 100%;
-            max-width: 550px; /* Размер кассеты */
+            max-width: 600px; 
             height: auto;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
@@ -208,23 +205,22 @@
             border-radius: 2px;
         }
 
-        /* --- АДАПТИВ ДЛЯ ТЕЛЕФОНОВ (как было, чтобы не сломать) --- */
-        @media (max-width: 850px) {
+        /* --- ТЕЛЕФОНЫ (Адаптив) --- */
+        @media (max-width: 900px) {
             .main-container {
                 flex-direction: column;
                 padding: 20px;
-                justify-content: center;
+                gap: 30px;
             }
             .left-section {
-                align-items: center; /* На телефоне всё по центру */
+                align-items: center;
                 text-align: center;
-                flex: 1 1 auto;
+                max-width: 100%;
             }
             .about-text {
                 text-align: center;
             }
             .right-section {
-                flex: 1 1 auto;
                 width: 100%;
             }
         }
@@ -234,9 +230,11 @@
 
     <div class="main-container">
         
-        <!-- ЛЕВАЯ ЧАСТЬ (сдвинута влево) -->
+        <!-- ЛЕВАЯ ЧАСТЬ -->
         <div class="left-section">
-            <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo">
+            <!-- ВАЖНО: Здесь я исправил название на TT%20Radio%20logo%201.png -->
+            <img src="TT%20Radio%20logo%201.png" alt="TT Radio Logo" class="logo">
+            
             <div class="about-text">
                 <strong>TT Radio — твой личный портал в мир звука.</strong>
                 Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.
@@ -248,9 +246,10 @@
             </button>
         </div>
 
-        <!-- ПРАВАЯ ЧАСТЬ (кассета и плеер на месте) -->
+        <!-- ПРАВАЯ ЧАСТЬ -->
         <div class="right-section">
-            <img src="TT%20Radio%20fon.png" alt="TT Radio Banner" class="cassette-img">
+            <!-- ВАЖНО: Здесь я исправил название на TT%20Radio%20fon%201.png -->
+            <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
             
             <div class="player-box">
                 <div class="on-air">
