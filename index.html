@@ -12,30 +12,33 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* Главный контейнер */
         .layout-container {
             display: flex;
             justify-content: space-between;
             align-items: flex-start; 
             width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 40px 60px; 
             box-sizing: border-box;
+            flex: 1; 
         }
 
-        /* --- ЛЕВАЯ ЧАСТЬ (Логотип и текст) --- */
+        /* --- ЛЕВАЯ ЧАСТЬ --- */
         .left-panel {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             gap: 30px;
-            max-width: 350px; /* Чуть сузили, так как логотип стал меньше */
-            flex-shrink: 0; /* Запрещаем сжиматься */
+            max-width: 350px; 
+            flex-shrink: 0; 
         }
 
-        /* Логотип 300px */
         .logo-container {
             width: 300px; 
             height: 300px;
@@ -46,14 +49,23 @@
             align-items: center;
         }
 
+        /* Логотип: убираем бесконечную анимацию, оставляем только базовый зум */
         .logo {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scale(1.6); /* Зум, чтобы убрать пустые поля картинки */
+            transform: scale(1.6); 
         }
 
-        /* Текст под логотипом */
+        /* Класс, который добавляет вращение */
+        .logo.spinning {
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: scale(1.6) rotate(360deg); }
+        }
+
         .about-text {
             color: #ccc;
             line-height: 1.8;
@@ -61,29 +73,27 @@
             text-align: left;
         }
 
-        /* --- ПРАВАЯ ЧАСТЬ (Кассета и плеер ПО ЦЕНТРУ) --- */
+        /* --- ПРАВАЯ ЧАСТЬ --- */
         .right-panel {
-            flex: 1; /* Занимает все оставшееся место */
+            flex: 1; 
             display: flex;
             flex-direction: column;
-            align-items: center; /* Центрируем по горизонтали */
+            align-items: center; 
             justify-content: flex-start;
             gap: 20px;
         }
 
-        /* Кассета */
         .cassette-img {
             width: 100%;
-            max-width: 400px; /* Размер кассеты */
+            max-width: 400px; 
             height: auto;
             display: block;
         }
 
-        /* Плеер */
         .player-box {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Текст и кнопка по центру */
+            align-items: center; 
             text-align: center;
             width: 100%;
             max-width: 400px;
@@ -141,10 +151,57 @@
             align-items: center;
             transition: transform 0.2s;
             box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
+            margin-bottom: 15px;
         }
         .play-btn:hover { transform: scale(1.1); }
         .play-btn svg { width: 26px; height: 26px; fill: white; margin-left: 3px; }
         .play-btn.playing svg { margin-left: 0; }
+
+        /* --- ПОЛЗУНОК ГРОМКОСТИ --- */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 5px;
+        }
+        
+        .volume-icon {
+            width: 16px;
+            height: 16px;
+            fill: #888;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            width: 120px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ff6600;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(255,102,0,0.5);
+        }
+
+        /* --- ФУТЕР --- */
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #111;
+            margin-top: auto;
+        }
 
         /* --- АДАПТИВ ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 900px) {
@@ -170,17 +227,17 @@
         <!-- ЛЕВАЯ ЧАСТЬ -->
         <div class="left-panel">
             <div class="logo-container">
-                <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo">
+                <!-- Добавили id="logo-image" чтобы управлять им из JS -->
+                <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo" id="logo-image">
             </div>
             
             <div class="about-text">
-                Добро пожаловать на волну TT Radio!<br><br>
-                Лучший транс, психоделика и chill-out.<br><br>
-                Настраивайся на космос и наслаждайся эфиром.
+                TT Radio — твой личный портал в мир звука.<br><br>
+                Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.
             </div>
         </div>
 
-        <!-- ПРАВАЯ ЧАСТЬ (Центрирована) -->
+        <!-- ПРАВАЯ ЧАСТЬ -->
         <div class="right-panel">
             <!-- Кассета -->
             <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
@@ -199,9 +256,20 @@
                     <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
+
+                <!-- Ползунок громкости -->
+                <div class="volume-container">
+                    <svg class="volume-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.8" class="volume-slider">
+                </div>
             </div>
         </div>
 
+    </div>
+
+    <!-- ФУТЕР -->
+    <div class="footer">
+        © 2026 TT Radio. Вещание 24/7. Сделано с любовью к Трансу.
     </div>
 
     <!-- Скрипт плеера -->
@@ -211,6 +279,14 @@
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
         const trackTitle = document.getElementById('track-title');
+        const volumeControl = document.getElementById('volume-control');
+        const logoImage = document.getElementById('logo-image'); // Получаем доступ к логотипу
+
+        audio.volume = volumeControl.value;
+
+        volumeControl.addEventListener('input', (e) => {
+            audio.volume = e.target.value;
+        });
 
         playBtn.addEventListener('click', () => {
             if (audio.paused) {
@@ -218,11 +294,17 @@
                 playIcon.style.display = 'none';
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
+                
+                // Включаем вращение логотипа
+                logoImage.classList.add('spinning'); 
             } else {
                 audio.pause();
                 playIcon.style.display = 'block';
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
+                
+                // Останавливаем и сбрасываем в исходное положение
+                logoImage.classList.remove('spinning'); 
             }
         });
 
