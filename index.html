@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TT Radio - Trance from Keenetic</title>
     <style>
-        /* Чисто черный фон */
         body {
             background-color: #000000; 
             color: white;
@@ -13,81 +12,84 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        /* Сетка */
+        /* Контейнер разделяет экран на две части */
         .layout-container {
-            display: grid;
-            grid-template-columns: 350px 1fr; 
-            gap: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             width: 100%;
             max-width: 1400px;
+            margin: 0 auto;
             padding: 40px;
             box-sizing: border-box;
-            align-items: center;
+            gap: 40px;
         }
 
-        /* ЛЕВАЯ ЧАСТЬ */
+        /* --- ЛЕВАЯ ЧАСТЬ (Логотип и текст) --- */
         .left-panel {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 30px;
+            gap: 40px;
+            flex: 1;
+            max-width: 500px;
         }
 
+        /* Огромный логотип в левом верхнем углу */
         .logo {
-            width: 140px; 
+            width: 100%;
+            max-width: 350px; /* Увеличенный размер */
             height: auto;
             border-radius: 50%;
         }
 
-        /* Текст без подложки, просто на фоне */
+        /* Текст под логотипом */
         .about-text {
             color: #ccc;
             line-height: 1.8;
-            font-size: 16px;
-            width: 100%;
+            font-size: 18px;
+            text-align: left;
         }
 
-        /* ПРАВАЯ ЧАСТЬ */
+        /* --- ПРАВАЯ ЧАСТЬ (Кассета и плеер) --- */
         .right-panel {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-end; /* Прижимаем к правому краю */
             gap: 30px;
-            width: 100%;
+            flex: 1;
         }
 
-        /* Кассета */
+        /* Кассета (уменьшена в 2 раза) */
         .cassette-img {
             width: 100%;
-            max-width: 850px;
+            max-width: 450px; /* Было 850, стало 450 */
             height: auto;
             display: block;
         }
 
-        /* Плеер без рамок и фона */
+        /* Плеер под кассетой */
         .player-box {
-            text-align: center;
+            text-align: right;
             width: 100%;
             max-width: 450px;
-            position: relative;
-            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
 
         /* Индикатор эфира */
         .on-air {
             display: flex;
-            justify-content: center;
+            justify-content: flex-end; /* Справа */
             align-items: center;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             color: #ff4d4d;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .on-air-dot {
             width: 8px;
@@ -132,21 +134,35 @@
             align-items: center;
             transition: transform 0.2s;
             box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
-            margin: 0 auto;
         }
         .play-btn:hover { transform: scale(1.1); }
         .play-btn svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
         .play-btn.playing svg { margin-left: 0; }
 
-        /* Адаптив для телефонов */
+        /* --- АДАПТИВ ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 900px) {
             .layout-container {
-                grid-template-columns: 1fr;
+                flex-direction: column; /* Встает в столбик */
+                align-items: center;
                 padding: 20px;
-                gap: 40px;
             }
-            .left-panel { align-items: center; text-align: center; }
-            .right-panel { gap: 20px; }
+            .left-panel {
+                align-items: center;
+                text-align: center;
+            }
+            .about-text {
+                text-align: center;
+            }
+            .right-panel {
+                align-items: center;
+            }
+            .player-box {
+                text-align: center;
+                align-items: center;
+            }
+            .on-air {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -156,7 +172,10 @@
         
         <!-- ЛЕВАЯ ЧАСТЬ -->
         <div class="left-panel">
+            <!-- Огромный логотип -->
             <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo">
+            
+            <!-- Текст под логотипом -->
             <div class="about-text">
                 Добро пожаловать на волну TT Radio!<br><br>
                 Лучший транс, психоделика и chill-out.<br><br>
@@ -167,10 +186,10 @@
         <!-- ПРАВАЯ ЧАСТЬ -->
         <div class="right-panel">
             
-            <!-- Новая вырезанная кассета -->
+            <!-- Маленькая кассета в правом верхнем углу -->
             <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
             
-            <!-- Плеер -->
+            <!-- Плеер под кассетой -->
             <div class="player-box">
                 <div class="on-air">
                     <div class="on-air-dot"></div> В эфире
