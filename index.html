@@ -20,18 +20,19 @@
         /* Шапка сайта: логотип слева, название рядом */
         .header {
             width: 100%;
-            max-width: 1200px;
-            padding: 20px;
+            max-width: 1400px;
+            padding: 15px 30px;
             box-sizing: border-box;
             display: flex;
             align-items: center;
             gap: 15px;
+            background-color: #1a1a1a;
         }
         
         /* Логотип в левом верхнем углу */
         .logo {
-            width: 60px; 
-            height: 60px;
+            width: 50px; 
+            height: 50px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #333;
@@ -51,36 +52,25 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 960px;
+            max-width: 1400px; /* Ограничиваем максимальную ширину для больших мониторов */
             padding: 20px;
             box-sizing: border-box;
         }
         
-        /* Контейнер для кассеты с пропорциями 16:9 */
+        /* Кассета на всю ширину */
         .banner-container {
             width: 100%;
-            aspect-ratio: 16 / 9; /* Задаем жесткие пропорции 16:9 */
-            background-color: #000;
-            border-radius: 15px;
-            overflow: hidden; /* Обрезаем все, что вылезает */
-            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
             margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+            border-radius: 15px;
+            overflow: hidden;
         }
         
-        /* Сама картинка кассеты вписывается в контейнер */
+        /* Убираем черные полосы, картинка растягивается по ширине */
         .banner {
             width: 100%;
-            height: 100%;
-            object-fit: contain; /* Вписываем картинку целиком, без искажений */
-        }
-
-        .subtitle {
-            color: #aaa;
-            margin-bottom: 30px;
-            font-size: 18px;
+            height: auto;
+            display: block;
         }
 
         /* Кнопка */
@@ -88,13 +78,14 @@
             background-color: #ff6600;
             color: white;
             text-decoration: none;
-            padding: 15px 50px;
-            font-size: 22px;
+            padding: 15px 60px;
+            font-size: 24px;
             font-weight: bold;
             border-radius: 50px;
             transition: background-color 0.3s, transform 0.2s;
             box-shadow: 0 4px 15px rgba(255, 102, 0, 0.4);
             display: inline-block;
+            margin-bottom: 40px;
         }
         .play-button:hover {
             background-color: #ff8533;
@@ -116,8 +107,8 @@
             <img src="TT%20Radio%20fon.png" alt="TT Radio Banner" class="banner">
         </div>
         
-        <p class="subtitle">Транс от Keenetic</p>
-
+        <!-- Надпись "Транс от Keenetic" удалена -->
+        
         <a href="https://radio.tt-radio.netcraze.pro/TT_Radio.mp3" class="play-button" target="_blank">▶ Слушать эфир</a>
     </div>
 
