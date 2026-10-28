@@ -17,25 +17,27 @@
             overflow-x: hidden;
         }
 
+        /* Главный контейнер */
         .layout-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Разносит левую и правую части */
             align-items: flex-start; 
             width: 100%;
-            max-width: 1400px;
+            max-width: 1600px; /* Сделали чуть шире */
             margin: 0 auto;
             padding: 40px 60px; 
             box-sizing: border-box;
             flex: 1; 
         }
 
-        /* --- ЛЕВАЯ ЧАСТЬ --- */
+        /* --- ЛЕВАЯ ЧАСТЬ (Логотип и текст) --- */
         .left-panel {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: flex-start; /* Жестко прижимаем всё влево */
+            text-align: left;
             gap: 30px;
-            max-width: 350px; 
+            max-width: 450px; /* Увеличили ширину блока, чтобы текст не ломался по буквам */
             flex-shrink: 0; 
         }
 
@@ -49,7 +51,7 @@
             align-items: center;
         }
 
-        /* Логотип: убираем бесконечную анимацию, оставляем только базовый зум */
+        /* Логотип */
         .logo {
             width: 100%;
             height: 100%;
@@ -57,7 +59,7 @@
             transform: scale(1.6); 
         }
 
-        /* Класс, который добавляет вращение */
+        /* Класс для вращения */
         .logo.spinning {
             animation: spin 10s linear infinite;
         }
@@ -66,14 +68,16 @@
             100% { transform: scale(1.6) rotate(360deg); }
         }
 
+        /* Текст */
         .about-text {
             color: #ccc;
-            line-height: 1.8;
+            line-height: 1.6;
             font-size: 18px;
             text-align: left;
+            width: 100%;
         }
 
-        /* --- ПРАВАЯ ЧАСТЬ --- */
+        /* --- ПРАВАЯ ЧАСТЬ (Кассета и плеер) --- */
         .right-panel {
             flex: 1; 
             display: flex;
@@ -227,22 +231,20 @@
         <!-- ЛЕВАЯ ЧАСТЬ -->
         <div class="left-panel">
             <div class="logo-container">
-                <!-- Добавили id="logo-image" чтобы управлять им из JS -->
                 <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo" id="logo-image">
             </div>
             
+            <!-- Текст в две строки, как ты просил -->
             <div class="about-text">
-                TT Radio — твой личный портал в мир звука.<br><br>
+                TT Radio — твой личный портал в мир звука.<br>
                 Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.
             </div>
         </div>
 
         <!-- ПРАВАЯ ЧАСТЬ -->
         <div class="right-panel">
-            <!-- Кассета -->
             <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
             
-            <!-- Плеер -->
             <div class="player-box">
                 <div class="on-air">
                     <div class="on-air-dot"></div> В эфире
@@ -257,7 +259,6 @@
                     <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
 
-                <!-- Ползунок громкости -->
                 <div class="volume-container">
                     <svg class="volume-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                     <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.8" class="volume-slider">
@@ -280,7 +281,7 @@
         const pauseIcon = document.getElementById('pause-icon');
         const trackTitle = document.getElementById('track-title');
         const volumeControl = document.getElementById('volume-control');
-        const logoImage = document.getElementById('logo-image'); // Получаем доступ к логотипу
+        const logoImage = document.getElementById('logo-image'); 
 
         audio.volume = volumeControl.value;
 
@@ -294,16 +295,12 @@
                 playIcon.style.display = 'none';
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
-                
-                // Включаем вращение логотипа
                 logoImage.classList.add('spinning'); 
             } else {
                 audio.pause();
                 playIcon.style.display = 'block';
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
-                
-                // Останавливаем и сбрасываем в исходное положение
                 logoImage.classList.remove('spinning'); 
             }
         });
