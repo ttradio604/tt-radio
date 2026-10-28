@@ -15,13 +15,13 @@
             overflow-x: hidden;
         }
 
-        /* Главный контейнер на весь экран */
+        /* Главный контейнер */
         .layout-container {
             display: flex;
-            justify-content: space-between; /* Разносит блоки по краям */
-            align-items: flex-start; /* Прижимает всё к верху */
+            justify-content: space-between;
+            align-items: flex-start; 
             width: 100%;
-            padding: 40px 60px; /* Отступы от краев экрана */
+            padding: 40px 60px; 
             box-sizing: border-box;
         }
 
@@ -31,13 +31,14 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 30px;
-            max-width: 450px; /* Ограничиваем ширину текста */
+            max-width: 350px; /* Чуть сузили, так как логотип стал меньше */
+            flex-shrink: 0; /* Запрещаем сжиматься */
         }
 
-        /* Огромный логотип */
+        /* Логотип 300px */
         .logo-container {
-            width: 350px; 
-            height: 350px;
+            width: 300px; 
+            height: 300px;
             overflow: hidden;
             border-radius: 50%;
             display: flex;
@@ -49,7 +50,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scale(1.6); /* Зум, чтобы убрать белые поля картинки */
+            transform: scale(1.6); /* Зум, чтобы убрать пустые поля картинки */
         }
 
         /* Текст под логотипом */
@@ -60,19 +61,20 @@
             text-align: left;
         }
 
-        /* --- ПРАВАЯ ЧАСТЬ (Кассета и плеер) --- */
+        /* --- ПРАВАЯ ЧАСТЬ (Кассета и плеер ПО ЦЕНТРУ) --- */
         .right-panel {
+            flex: 1; /* Занимает все оставшееся место */
             display: flex;
             flex-direction: column;
-            align-items: flex-end; /* Прижимает контент к правому краю */
+            align-items: center; /* Центрируем по горизонтали */
+            justify-content: flex-start;
             gap: 20px;
-            max-width: 400px; /* Ширина правого блока */
         }
 
         /* Кассета */
         .cassette-img {
             width: 100%;
-            max-width: 350px; /* Размер кассеты */
+            max-width: 400px; /* Размер кассеты */
             height: auto;
             display: block;
         }
@@ -81,14 +83,15 @@
         .player-box {
             display: flex;
             flex-direction: column;
-            align-items: flex-end; /* Текст и кнопка справа */
-            text-align: right;
+            align-items: center; /* Текст и кнопка по центру */
+            text-align: center;
             width: 100%;
+            max-width: 400px;
         }
 
         .on-air {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
             font-size: 12px;
             font-weight: bold;
@@ -149,15 +152,13 @@
                 flex-direction: column;
                 align-items: center;
                 padding: 20px;
+                gap: 40px;
             }
-            .left-panel, .right-panel {
+            .left-panel {
                 align-items: center;
                 text-align: center;
-                max-width: 100%;
             }
             .about-text { text-align: center; }
-            .player-box { align-items: center; text-align: center; }
-            .on-air { justify-content: center; }
             .logo-container { width: 250px; height: 250px; }
         }
     </style>
@@ -179,12 +180,12 @@
             </div>
         </div>
 
-        <!-- ПРАВАЯ ЧАСТЬ -->
+        <!-- ПРАВАЯ ЧАСТЬ (Центрирована) -->
         <div class="right-panel">
-            <!-- Кассета (справа вверху) -->
+            <!-- Кассета -->
             <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
             
-            <!-- Плеер (под кассетой) -->
+            <!-- Плеер -->
             <div class="player-box">
                 <div class="on-air">
                     <div class="on-air-dot"></div> В эфире
