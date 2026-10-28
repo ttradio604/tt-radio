@@ -12,9 +12,10 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Контейнер разделяет экран на две части */
+        /* Сетка: Левая часть занимает больше места */
         .layout-container {
             display: flex;
             justify-content: space-between;
@@ -24,25 +25,36 @@
             margin: 0 auto;
             padding: 40px;
             box-sizing: border-box;
-            gap: 40px;
+            gap: 20px;
         }
 
-        /* --- ЛЕВАЯ ЧАСТЬ (Логотип и текст) --- */
+        /* --- ЛЕВАЯ ЧАСТЬ --- */
         .left-panel {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 40px;
+            gap: 30px;
             flex: 1;
-            max-width: 500px;
+            max-width: 600px;
         }
 
-        /* Огромный логотип в левом верхнем углу */
+        /* Контейнер для зума логотипа */
+        .logo-container {
+            width: 400px; /* Огромный размер */
+            height: 400px;
+            overflow: hidden;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Сам логотип: увеличиваем, чтобы убрать пустые края картинки */
         .logo {
             width: 100%;
-            max-width: 350px; /* Увеличенный размер */
-            height: auto;
-            border-radius: 50%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.6); /* Принудительный зум логотипа */
         }
 
         /* Текст под логотипом */
@@ -53,19 +65,19 @@
             text-align: left;
         }
 
-        /* --- ПРАВАЯ ЧАСТЬ (Кассета и плеер) --- */
+        /* --- ПРАВАЯ ЧАСТЬ --- */
         .right-panel {
             display: flex;
             flex-direction: column;
-            align-items: flex-end; /* Прижимаем к правому краю */
-            gap: 30px;
+            align-items: flex-end; /* Всё прижато вправо */
+            gap: 20px;
             flex: 1;
         }
 
-        /* Кассета (уменьшена в 2 раза) */
+        /* Кассета (маленькая, в правом верхнем углу) */
         .cassette-img {
             width: 100%;
-            max-width: 450px; /* Было 850, стало 450 */
+            max-width: 350px; /* Уменьшили кассету */
             height: auto;
             display: block;
         }
@@ -74,16 +86,15 @@
         .player-box {
             text-align: right;
             width: 100%;
-            max-width: 450px;
+            max-width: 350px; /* Подогнали под ширину кассеты */
             display: flex;
             flex-direction: column;
             align-items: flex-end;
         }
 
-        /* Индикатор эфира */
         .on-air {
             display: flex;
-            justify-content: flex-end; /* Справа */
+            justify-content: flex-end;
             align-items: center;
             font-size: 12px;
             font-weight: bold;
@@ -114,19 +125,18 @@
             margin-bottom: 5px;
         }
         .track-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 600;
             color: #fff;
-            margin-bottom: 20px;
-            min-height: 30px;
+            margin-bottom: 15px;
+            min-height: 25px;
         }
 
-        /* Кнопка Play */
         .play-btn {
             background: linear-gradient(135deg, #ff6600, #ff3300);
             border: none;
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -136,33 +146,22 @@
             box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
         }
         .play-btn:hover { transform: scale(1.1); }
-        .play-btn svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
+        .play-btn svg { width: 26px; height: 26px; fill: white; margin-left: 3px; }
         .play-btn.playing svg { margin-left: 0; }
 
-        /* --- АДАПТИВ ДЛЯ ТЕЛЕФОНОВ --- */
+        /* Адаптив для телефонов */
         @media (max-width: 900px) {
             .layout-container {
-                flex-direction: column; /* Встает в столбик */
+                flex-direction: column;
                 align-items: center;
                 padding: 20px;
             }
-            .left-panel {
-                align-items: center;
-                text-align: center;
-            }
-            .about-text {
-                text-align: center;
-            }
-            .right-panel {
-                align-items: center;
-            }
-            .player-box {
-                text-align: center;
-                align-items: center;
-            }
-            .on-air {
-                justify-content: center;
-            }
+            .left-panel { align-items: center; text-align: center; }
+            .logo-container { width: 250px; height: 250px; }
+            .about-text { text-align: center; }
+            .right-panel { align-items: center; margin-top: 40px; }
+            .player-box { align-items: center; text-align: center; }
+            .on-air { justify-content: center; }
         }
     </style>
 </head>
@@ -172,10 +171,10 @@
         
         <!-- ЛЕВАЯ ЧАСТЬ -->
         <div class="left-panel">
-            <!-- Огромный логотип -->
-            <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo">
+            <div class="logo-container">
+                <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo">
+            </div>
             
-            <!-- Текст под логотипом -->
             <div class="about-text">
                 Добро пожаловать на волну TT Radio!<br><br>
                 Лучший транс, психоделика и chill-out.<br><br>
@@ -185,11 +184,10 @@
 
         <!-- ПРАВАЯ ЧАСТЬ -->
         <div class="right-panel">
-            
-            <!-- Маленькая кассета в правом верхнем углу -->
+            <!-- Кассета -->
             <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
             
-            <!-- Плеер под кассетой -->
+            <!-- Плеер -->
             <div class="player-box">
                 <div class="on-air">
                     <div class="on-air-dot"></div> В эфире
@@ -204,7 +202,6 @@
                     <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
             </div>
-
         </div>
 
     </div>
