@@ -15,46 +15,45 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-between; 
         }
 
         /* Главный контейнер */
         .main-container {
             display: flex;
             flex-direction: row;
-            align-items: center;
-            justify-content: center; 
-            gap: 80px; 
+            justify-content: space-between; 
+            align-items: flex-start; 
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 40px;
+            padding: 40px 60px;
             box-sizing: border-box;
             flex: 1;
         }
 
-        /* --- ЛЕВАЯ ЧАСТЬ --- */
+        /* --- ЛЕВАЯ ЧАСТЬ (Лого и Текст) --- */
         .left-section {
             display: flex;
             flex-direction: column;
             align-items: flex-start; 
             gap: 20px;
             width: 450px;
-            flex-shrink: 0; /* Запрещаем сжиматься */
         }
 
-        /* ОГРОМНЫЙ ЛОГОТИП С ПОДСВЕТКОЙ */
+        /* БОЛЬШОЙ ЛОГОТИП */
         .logo {
-            width: 400px;
-            height: 400px;
+            width: 350px;
+            height: 350px;
             border-radius: 50%;
             margin-bottom: 10px;
             object-fit: cover;
-            box-shadow: 0 0 50px rgba(255, 102, 0, 0.4);
-            animation: spin 10s linear infinite;
-            animation-play-state: paused;
+            /* Анимация вращения */
+            animation: spin 8s linear infinite;
+            animation-play-state: paused; /* По умолчанию стоит на месте */
         }
 
+        /* Класс, который запускает вращение при нажатии Play */
         .logo.playing {
             animation-play-state: running;
         }
@@ -69,7 +68,6 @@
             color: #ccc;
         }
 
-        /* Текст с новой строки */
         .about-text p {
             margin: 0 0 15px 0; 
         }
@@ -92,22 +90,20 @@
         .share-btn:hover { background-color: #ff6600; color: #fff; }
         .share-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-        /* --- ПРАВАЯ ЧАСТЬ --- */
+        /* --- ПРАВАЯ ЧАСТЬ (Кассета и Плеер) --- */
         .right-section {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            width: 650px;
-            flex-shrink: 0;
+            width: 600px;
         }
 
-        /* Кассета */
+        /* Кассета (без тени) */
         .cassette-img {
             width: 100%;
             height: auto;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
         }
 
         /* Плеер */
@@ -182,19 +178,20 @@
             font-size: 14px;
         }
 
-        /* --- ТЕЛЕФОНЫ (ТОЛЬКО ДЛЯ УЗКИХ ЭКРАНОВ) --- */
+        /* --- ТЕЛЕФОНЫ --- */
         @media (max-width: 1000px) {
             .main-container {
                 flex-direction: column;
                 padding: 20px;
                 gap: 40px;
+                align-items: center;
             }
             .left-section, .right-section {
                 width: 100%;
                 align-items: center;
                 text-align: center;
             }
-            .logo { width: 300px; height: 300px; }
+            .logo { width: 250px; height: 250px; }
         }
     </style>
 </head>
@@ -248,9 +245,9 @@
 
     </div>
 
-    <!-- ФУТЕР С 2026 ГОДОМ -->
+    <!-- ФУТЕР -->
     <footer class="footer">
-        &copy; 2026 TT Radio. Все права защищены.
+        © 2026 TT Radio. Все права защищены.
     </footer>
 
     <!-- Скрипт плеера -->
@@ -261,7 +258,7 @@
         const pauseIcon = document.getElementById('pause-icon');
         const trackTitle = document.getElementById('track-title');
         const volumeSlider = document.getElementById('volume-slider');
-        const mainLogo = document.getElementById('main-logo');
+        const mainLogo = document.getElementById('main-logo'); // Получаем доступ к логотипу
         const playerContainer = document.getElementById('player-container');
 
         playBtn.addEventListener('click', () => {
@@ -271,7 +268,8 @@
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
                 
-                mainLogo.classList.add('playing');
+                // ЗАПУСКАЕМ ВРАЩЕНИЕ
+                mainLogo.classList.add('playing'); 
                 playerContainer.classList.add('playing');
             } else {
                 audio.pause();
@@ -279,7 +277,8 @@
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
                 
-                mainLogo.classList.remove('playing');
+                // ОСТАНАВЛИВАЕМ И ВОЗВРАЩАЕМ В ИСХОДНОЕ
+                mainLogo.classList.remove('playing'); 
                 playerContainer.classList.remove('playing');
             }
         });
