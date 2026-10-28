@@ -38,24 +38,23 @@
             flex-direction: column;
             align-items: flex-start; 
             gap: 20px;
-            width: 600px; /* Увеличил ширину блока, чтобы большой логотип не прилипал к тексту */
+            width: 600px; 
         }
 
-        /* БОЛЬШОЙ ЛОГОТИП (Увеличен на 50% и сдвинут влево) */
+        /* БОЛЬШОЙ ЛОГОТИП (525px и сдвиг влево) */
         .logo {
-            width: 525px; /* Было 350px */
-            height: 525px; /* Было 350px */
+            width: 525px; 
+            height: 525px; 
             border-radius: 50%;
             margin-bottom: 10px;
-            margin-left: -120px; /* Сдвиг влево примерно на 5 см */
+            margin-left: -120px; 
             object-fit: cover;
-            animation: spin 8s linear infinite;
-            animation-play-state: paused; 
+            /* По умолчанию анимации НЕТ, логотип стоит ровно */
         }
 
-        /* Класс, который запускает вращение при нажатии Play */
+        /* Класс, который добавляет вращение при нажатии Play */
         .logo.playing {
-            animation-play-state: running;
+            animation: spin 8s linear infinite;
         }
 
         @keyframes spin {
@@ -268,6 +267,7 @@
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
                 
+                // Добавляем класс для вращения
                 mainLogo.classList.add('playing'); 
                 playerContainer.classList.add('playing');
             } else {
@@ -276,6 +276,7 @@
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
                 
+                // Убираем класс. Логотип мгновенно возвращается в исходное положение (0 градусов)
                 mainLogo.classList.remove('playing'); 
                 playerContainer.classList.remove('playing');
             }
