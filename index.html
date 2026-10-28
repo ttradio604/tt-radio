@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TT Radio - Trance from Keenetic</title>
     <style>
-        /* Основной темный фон */
+        /* Чисто черный фон */
         body {
-            background-color: #121212;
+            background-color: #000000; 
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -15,106 +15,86 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center; /* Центрируем контент по вертикали */
+            align-items: center;
         }
 
-        /* Главный контейнер, который делит экран на 2 части */
-        .main-container {
-            display: flex;
-            flex-wrap: wrap; /* Позволит переносить блоки, если экран узкий */
-            justify-content: center;
-            align-items: center;
-            gap: 50px; /* Расстояние между левой и правой колонкой */
+        /* Сетка */
+        .layout-container {
+            display: grid;
+            grid-template-columns: 350px 1fr; 
+            gap: 60px;
             width: 100%;
             max-width: 1400px;
             padding: 40px;
             box-sizing: border-box;
+            align-items: center;
         }
 
-        /* --- ЛЕВАЯ КОЛОНКА (Логотип и Текст) --- */
+        /* ЛЕВАЯ ЧАСТЬ */
         .left-panel {
-            flex: 0 1 350px; /* Занимает около 350px, не растягивается сильно */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .logo {
+            width: 140px; 
+            height: auto;
+            border-radius: 50%;
+        }
+
+        /* Текст без подложки, просто на фоне */
+        .about-text {
+            color: #ccc;
+            line-height: 1.8;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        /* ПРАВАЯ ЧАСТЬ */
+        .right-panel {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 30px;
-        }
-
-        /* Аккуратный круглый логотип */
-        .logo {
             width: 100%;
-            max-width: 250px;
-            height: auto;
-            border-radius: 50%;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Легкая тень для объема */
         }
 
-        /* Блок с текстом */
-        .about-text {
-            background-color: #1e1e1e;
-            border-radius: 15px;
-            padding: 25px;
-            border: 1px solid #333;
-            color: #bbb;
-            line-height: 1.6;
-            font-size: 16px;
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* --- ПРАВАЯ КОЛОНКА (Кассета и Плеер) --- */
-        .right-panel {
-            flex: 1 1 600px; /* Занимает основное пространство */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px; /* Расстояние между кассетой и плеером */
-            max-width: 900px;
-        }
-
-        /* Яркая кассета */
+        /* Кассета */
         .cassette-img {
             width: 100%;
+            max-width: 850px;
             height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            display: block;
         }
 
-        /* --- ПЛЕЕР (под кассетой) --- */
+        /* Плеер без рамок и фона */
         .player-box {
-            background-color: #1e1e1e;
-            border-radius: 20px;
-            padding: 20px 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-            border: 1px solid #333;
             text-align: center;
             width: 100%;
-            max-width: 400px; /* Компактный размер */
+            max-width: 450px;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding-top: 20px;
         }
 
-        /* Индикатор В эфире */
+        /* Индикатор эфира */
         .on-air {
-            position: absolute;
-            top: 15px;
-            left: 15px;
             display: flex;
+            justify-content: center;
             align-items: center;
             font-size: 11px;
             font-weight: bold;
             color: #ff4d4d;
             text-transform: uppercase;
+            margin-bottom: 10px;
         }
         .on-air-dot {
             width: 8px;
             height: 8px;
             background-color: #ff4d4d;
             border-radius: 50%;
-            margin-right: 6px;
+            margin-right: 8px;
             box-shadow: 0 0 8px #ff4d4d;
             animation: pulse 1.5s infinite;
         }
@@ -129,23 +109,22 @@
             font-size: 12px;
             color: #888;
             text-transform: uppercase;
-            margin-bottom: 8px;
-            margin-top: 15px;
+            margin-bottom: 5px;
         }
         .track-title {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 600;
             color: #fff;
             margin-bottom: 20px;
-            min-height: 25px;
+            min-height: 30px;
         }
 
         /* Кнопка Play */
         .play-btn {
             background: linear-gradient(135deg, #ff6600, #ff3300);
             border: none;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -153,18 +132,29 @@
             align-items: center;
             transition: transform 0.2s;
             box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
+            margin: 0 auto;
         }
         .play-btn:hover { transform: scale(1.1); }
-        .play-btn svg { width: 25px; height: 25px; fill: white; margin-left: 3px; }
+        .play-btn svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
         .play-btn.playing svg { margin-left: 0; }
 
+        /* Адаптив для телефонов */
+        @media (max-width: 900px) {
+            .layout-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 40px;
+            }
+            .left-panel { align-items: center; text-align: center; }
+            .right-panel { gap: 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
+    <div class="layout-container">
         
-        <!-- ЛЕВАЯ ЧАСТЬ: Логотип и текст -->
+        <!-- ЛЕВАЯ ЧАСТЬ -->
         <div class="left-panel">
             <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo">
             <div class="about-text">
@@ -174,10 +164,13 @@
             </div>
         </div>
 
-        <!-- ПРАВАЯ ЧАСТЬ: Кассета и плеер -->
+        <!-- ПРАВАЯ ЧАСТЬ -->
         <div class="right-panel">
-            <img src="TT%20Radio%20fon.png" alt="TT Radio Banner" class="cassette-img">
             
+            <!-- Новая вырезанная кассета -->
+            <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
+            
+            <!-- Плеер -->
             <div class="player-box">
                 <div class="on-air">
                     <div class="on-air-dot"></div> В эфире
@@ -185,13 +178,14 @@
                 <div class="track-label">Сейчас играет</div>
                 <div class="track-title" id="track-title">Загрузка...</div>
                 
-                <audio id="radio-stream" src="https://radio.tt.radio.netcraze.pro/TT_Radio.mp3" preload="none"></audio>
+                <audio id="radio-stream" src="https://radio.tt-radio.netcraze.pro/TT_Radio.mp3" preload="none"></audio>
                 
                 <button class="play-btn" id="play-button">
                     <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
             </div>
+
         </div>
 
     </div>
@@ -219,7 +213,7 @@
         });
 
         function fetchTrackInfo() {
-            fetch('https://radio.tt.radio.netcraze.pro/status-json.xsl')
+            fetch('https://radio.tt-radio.netcraze.pro/status-json.xsl')
                 .then(response => response.json())
                 .then(data => {
                     try {
