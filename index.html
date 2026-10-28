@@ -38,19 +38,19 @@
             flex-direction: column;
             align-items: flex-start; 
             gap: 20px;
-            width: 450px;
+            width: 600px; /* Увеличил ширину блока, чтобы большой логотип не прилипал к тексту */
         }
 
-        /* БОЛЬШОЙ ЛОГОТИП */
+        /* БОЛЬШОЙ ЛОГОТИП (Увеличен на 50% и сдвинут влево) */
         .logo {
-            width: 350px;
-            height: 350px;
+            width: 525px; /* Было 350px */
+            height: 525px; /* Было 350px */
             border-radius: 50%;
             margin-bottom: 10px;
+            margin-left: -120px; /* Сдвиг влево примерно на 5 см */
             object-fit: cover;
-            /* Анимация вращения */
             animation: spin 8s linear infinite;
-            animation-play-state: paused; /* По умолчанию стоит на месте */
+            animation-play-state: paused; 
         }
 
         /* Класс, который запускает вращение при нажатии Play */
@@ -99,7 +99,7 @@
             width: 600px;
         }
 
-        /* Кассета (без тени) */
+        /* Кассета */
         .cassette-img {
             width: 100%;
             height: auto;
@@ -191,7 +191,7 @@
                 align-items: center;
                 text-align: center;
             }
-            .logo { width: 250px; height: 250px; }
+            .logo { width: 300px; height: 300px; margin-left: 0; }
         }
     </style>
 </head>
@@ -258,7 +258,7 @@
         const pauseIcon = document.getElementById('pause-icon');
         const trackTitle = document.getElementById('track-title');
         const volumeSlider = document.getElementById('volume-slider');
-        const mainLogo = document.getElementById('main-logo'); // Получаем доступ к логотипу
+        const mainLogo = document.getElementById('main-logo'); 
         const playerContainer = document.getElementById('player-container');
 
         playBtn.addEventListener('click', () => {
@@ -268,7 +268,6 @@
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
                 
-                // ЗАПУСКАЕМ ВРАЩЕНИЕ
                 mainLogo.classList.add('playing'); 
                 playerContainer.classList.add('playing');
             } else {
@@ -277,7 +276,6 @@
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
                 
-                // ОСТАНАВЛИВАЕМ И ВОЗВРАЩАЕМ В ИСХОДНОЕ
                 mainLogo.classList.remove('playing'); 
                 playerContainer.classList.remove('playing');
             }
