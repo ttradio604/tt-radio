@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TT Radio</title>
+    <title>TT Radio - Trance from Keenetic</title>
     <style>
         body {
             background-color: #121212;
@@ -16,101 +16,262 @@
             align-items: center;
             min-height: 100vh;
         }
-        
-        /* Шапка сайта: логотип слева, название рядом */
-        .header {
-            width: 100%;
-            max-width: 1400px;
-            padding: 15px 30px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background-color: #1a1a1a;
-        }
-        
-        /* Логотип в левом верхнем углу */
-        .logo {
-            width: 50px; 
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #333;
-        }
-        
-        .site-title {
-            font-size: 20px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0;
-        }
 
-        /* Основной блок по центру */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* Кассета на весь экран */
+        .full-banner {
             width: 100%;
-            max-width: 1400px; /* Ограничиваем максимальную ширину для больших мониторов */
-            padding: 20px;
-            box-sizing: border-box;
+            display: block;
         }
-        
-        /* Кассета на всю ширину */
-        .banner-container {
-            width: 100%;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        /* Убираем черные полосы, картинка растягивается по ширине */
-        .banner {
+        .full-banner img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        /* Кнопка */
-        .play-button {
-            background-color: #ff6600;
-            color: white;
-            text-decoration: none;
-            padding: 15px 60px;
-            font-size: 24px;
-            font-weight: bold;
-            border-radius: 50px;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.4);
-            display: inline-block;
-            margin-bottom: 40px;
+        /* Основной контейнер (две колонки) */
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            gap: 40px;
         }
-        .play-button:hover {
-            background-color: #ff8533;
+
+        /* Левая колонка (Логотип + Текст) */
+        .left-column {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .big-logo {
+            width: 100%;
+            max-width: 350px; /* Размер логотипа */
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            margin-bottom: 30px;
+            border: 4px solid #222;
+        }
+
+        .about-text {
+            text-align: center;
+            color: #bbb;
+            font-size: 16px;
+            line-height: 1.6;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Правая колонка (Плеер) */
+        .right-column {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Красивый плеер */
+        .player-box {
+            background: linear-gradient(145deg, #1e1e1e, #151515);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid #333;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Светящийся индикатор эфира */
+        .on-air {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #ff3333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .on-air-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ff3333;
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #ff3333;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+            100% { transform: scale(0.95); opacity: 1; }
+        }
+
+        /* Название трека */
+        .track-info {
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+        .track-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .track-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            min-height: 30px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Кнопка Play */
+        .play-btn {
+            background: linear-gradient(135deg, #ff6600, #ff4400);
+            border: none;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 20px rgba(255, 102, 0, 0.4);
+        }
+        .play-btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 102, 0, 0.6);
+        }
+        .play-btn svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+            margin-left: 5px; /* Сдвиг иконки play для визуального центра */
+        }
+        .play-btn.playing svg {
+            margin-left: 0; /* Убираем сдвиг для паузы */
         }
     </style>
 </head>
 <body>
 
-    <!-- Шапка с логотипом слева -->
-    <div class="header">
-        <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo">
-        <h1 class="site-title">TT Radio</h1>
+    <!-- Кассета во всю ширину -->
+    <div class="full-banner">
+        <img src="TT%20Radio%20fon.png" alt="TT Radio Banner">
     </div>
 
-    <!-- Основная часть -->
-    <div class="main-content">
-        <div class="banner-container">
-            <img src="TT%20Radio%20fon.png" alt="TT Radio Banner" class="banner">
+    <!-- Основной контент -->
+    <div class="content-wrapper">
+        
+        <!-- Левая колонка -->
+        <div class="left-column">
+            <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="big-logo">
+            <div class="about-text">
+                <!-- ТУТ МОЖЕШЬ НАПИСАТЬ ПАРУ СЛОВ -->
+                Добро пожаловать на волну TT Radio!<br>
+                Лучший транс, психоделика и chill-out.<br>
+                Настраивайся на космос и наслаждайся эфиром.
+            </div>
         </div>
-        
-        <!-- Надпись "Транс от Keenetic" удалена -->
-        
-        <a href="https://radio.tt-radio.netcraze.pro/TT_Radio.mp3" class="play-button" target="_blank">▶ Слушать эфир</a>
+
+        <!-- Правая колонка (Плеер) -->
+        <div class="right-column">
+            <div class="player-box">
+                <div class="on-air">
+                    <div class="on-air-dot"></div> В эфире
+                </div>
+
+                <div class="track-info">
+                    <div class="track-label">Сейчас играет</div>
+                    <div class="track-title" id="track-title">Загрузка...</div>
+                </div>
+
+                <!-- Аудио тег скрыт, мы управляем им через JS -->
+                <audio id="radio-stream" src="https://radio.tt-radio.netcraze.pro/TT_Radio.mp3" preload="none"></audio>
+                
+                <button class="play-btn" id="play-button">
+                    <!-- Иконка Play (SVG) -->
+                    <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <!-- Иконка Pause (SVG) скрыта по умолчанию -->
+                    <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+            </div>
+        </div>
+
     </div>
+
+    <!-- Скрипт для управления плеером и получения названий -->
+    <script>
+        const audio = document.getElementById('radio-stream');
+        const playBtn = document.getElementById('play-button');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const trackTitle = document.getElementById('track-title');
+
+        // Управление Play/Pause
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+                playBtn.classList.add('playing');
+            } else {
+                audio.pause();
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+                playBtn.classList.remove('playing');
+            }
+        });
+
+        // Функция получения названия трека из Icecast
+        // ВНИМАНИЕ: Если Icecast не разрешает CORS (что часто бывает), 
+        // название может не загрузиться. Мы добавили обработку ошибок.
+        function fetchTrackInfo() {
+            // Используем JSON API Icecast. Если Keenetic Cloud блокирует, попробуем напрямую.
+            fetch('https://radio.tt-radio.netcraze.pro/status-json.xsl')
+                .then(response => response.json())
+                .then(data => {
+                    try {
+                        // Icecast возвращает разные структуры, ищем поле title
+                        let title = data.icestats.source.title;
+                        if (title && title !== "Unknown") {
+                            trackTitle.innerText = title;
+                        } else {
+                            trackTitle.innerText = "TT Radio Live";
+                        }
+                    } catch (e) {
+                        trackTitle.innerText = "TT Radio Live";
+                    }
+                })
+                .catch(error => {
+                    console.log('Ошибка получения метаданных (возможно CORS):', error);
+                    // Если не удалось получить, просто показываем название станции
+                    trackTitle.innerText = "TT Radio Live";
+                });
+        }
+
+        // Обновляем название каждые 5 секунд
+        setInterval(fetchTrackInfo, 5000);
+        fetchTrackInfo(); // Первый запуск
+    </script>
 
 </body>
 </html>
