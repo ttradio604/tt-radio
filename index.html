@@ -49,6 +49,7 @@
             margin-bottom: 10px;
             margin-left: -120px; 
             object-fit: cover;
+            /* По умолчанию анимации НЕТ, логотип стоит ровно */
         }
 
         /* Класс, который добавляет вращение при нажатии Play */
@@ -87,8 +88,7 @@
         }
         .share-btn:hover { background-color: #ff6600; color: #fff; }
         .share-btn svg { width: 16px; height: 16px; fill: currentColor; }
-
-        /* Кнопка скачивания плейлиста */
+                /* Кнопка скачивания плейлиста */
         .m3u-btn {
             display: inline-flex;
             align-items: center;
@@ -108,81 +108,6 @@
             background-color: #333;
             border-color: #ff6600;
             color: #ff6600;
-        }
-
-        /* --- QR-код (Радио) --- */
-        .qr-container {
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; 
-        }
-        .qr-image {
-            width: 160px;      
-            height: 160px;
-            border-radius: 12px;
-            background-color: #ffffff; 
-            padding: 8px;
-            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2); 
-            display: block;
-        }
-
-        /* --- Блок донатов --- */
-        .donate-block {
-            margin-top: 15px;
-            padding: 15px 20px;
-            background-color: #0a0a0a;
-            border: 1px dashed #ff6600;
-            border-radius: 12px;
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            max-width: 320px;
-        }
-        .donate-title {
-            margin: 0;
-            font-size: 16px;
-            color: #fff;
-            font-weight: bold;
-        }
-        .donate-qr {
-            width: 150px;
-            height: 150px;
-            border-radius: 8px;
-            background: white;
-            padding: 6px;
-            transition: transform 0.2s;
-        }
-        .donate-qr:hover {
-            transform: scale(1.05);
-        }
-        .donate-btn {
-            display: inline-block;
-            background-color: #ff6600;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 1px solid #ff6600;
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box;
-            margin-top: 5px;
-        }
-        .donate-btn:hover {
-            background-color: transparent;
-            color: #ff6600;
-        }
-        .donate-hint {
-            margin: 0;
-            font-size: 12px;
-            color: #888;
-            text-align: center;
-            line-height: 1.4;
         }
 
         /* --- ПРАВАЯ ЧАСТЬ (Кассета и Плеер) --- */
@@ -287,7 +212,43 @@
                 text-align: center;
             }
             .logo { width: 300px; height: 300px; margin-left: 0; }
-            .qr-container, .donate-block { align-items: center; }
+        }
+                /* --- QR-код --- */
+        .qr-container {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Выравнивание по левому краю */
+        }
+        .qr-image {
+            width: 160px;      /* Размер QR-кода */
+            height: 160px;
+            border-radius: 12px;
+            background-color: #ffffff; /* Белый фон для лучшего сканирования */
+            padding: 8px;      /* Отступы внутри белого квадрата */
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2); /* Легкая оранжевая тень в стиле сайта */
+            display: block;
+        }
+                /* Стили для QR-кода */
+        .qr-container {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; 
+        }
+        .qr-image {
+            width: 160px;      
+            height: 160px;
+            border-radius: 12px;
+            background-color: #ffffff; 
+            padding: 8px;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2); 
+            display: block;
+        }
+
+        /* Чтобы на телефоне QR был по центру */
+        @media (max-width: 1000px) {
+            .qr-container { align-items: center; }
         }
     </style>
 </head>
@@ -302,38 +263,21 @@
             <div class="about-text">
                 <p><strong>TT Radio — твой личный портал в мир звука.</strong></p>
                 <p>Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.</p>
-                <p>Прямая ссылка для плеера на радио с поддержкой потокового вещания https://radio.tt-radio.netcraze.pro/TT_Radio.mp3 </p> 
-                
-                <!-- Кнопка скачивания плейлиста -->
+                <p>Прямая ссылка для плеера на радио с поддержкой потокового вещания https://radio.tt-radio.netcraze.pro/TT_Radio.mp3 или </p> 
+                 <!-- 👇 ВСТАВИТЬ СЮДА 👇 -->
                 <a href="TT_Radio.m3u" download class="m3u-btn">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                     Скачать плейлист для AIMP / VLC
                 </a>
-            </div>
+         </div>
 
             <button class="share-btn" onclick="shareSite()">
                 <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
                 Поделиться
             </button>
-
-            <!-- QR-код радио -->
+                        <!-- QR-код под кнопкой Поделиться -->
             <div class="qr-container">
                 <img src="qr.png" alt="QR-код TT Radio" class="qr-image">
-            </div>
-
-            <!-- Блок донатов -->
-            <div class="donate-block">
-                <p class="donate-title">Поддержать TT Radio</p>
-                
-                <!-- Картинка QR-кода. Файл называется Donate.png -->
-                <img src="Donate.png" alt="QR-код для доната" class="donate-qr">
-                
-                <!-- Кнопка для перехода по короткой ссылке Т-Банка -->
-                <a href="https://t.tb.ru/pm_short/6oEJzMNnFGT" target="_blank" rel="noopener noreferrer" class="donate-btn">
-                    💸 Перевести донат
-                </a>
-                
-                <p class="donate-hint">Или отсканируйте QR-код в приложении банка</p>
             </div>
         </div>
 
@@ -391,6 +335,7 @@
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
                 
+                // Добавляем класс для вращения
                 mainLogo.classList.add('playing'); 
                 playerContainer.classList.add('playing');
             } else {
@@ -399,6 +344,7 @@
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
                 
+                // Убираем класс. Логотип мгновенно возвращается в исходное положение (0 градусов)
                 mainLogo.classList.remove('playing'); 
                 playerContainer.classList.remove('playing');
             }
