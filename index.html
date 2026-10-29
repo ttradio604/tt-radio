@@ -49,7 +49,6 @@
             margin-bottom: 10px;
             margin-left: -120px; 
             object-fit: cover;
-            /* По умолчанию анимации НЕТ, логотип стоит ровно */
         }
 
         /* Класс, который добавляет вращение при нажатии Play */
@@ -88,7 +87,8 @@
         }
         .share-btn:hover { background-color: #ff6600; color: #fff; }
         .share-btn svg { width: 16px; height: 16px; fill: currentColor; }
-                /* Кнопка скачивания плейлиста */
+
+        /* Кнопка скачивания плейлиста */
         .m3u-btn {
             display: inline-flex;
             align-items: center;
@@ -108,6 +108,41 @@
             background-color: #333;
             border-color: #ff6600;
             color: #ff6600;
+        }
+
+        /* --- Блок с QR-кодами в ряд --- */
+        .qr-row {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            margin-top: 15px;
+            align-items: flex-start;
+        }
+        .qr-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .qr-image {
+            width: 130px;      /* Размер QR-кода */
+            height: 130px;
+            border-radius: 12px;
+            background-color: #ffffff; /* Белый фон для лучшего сканирования */
+            padding: 6px;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2); /* Легкая оранжевая тень */
+            display: block;
+            transition: transform 0.2s;
+        }
+        .qr-image:hover {
+            transform: scale(1.05);
+        }
+        .qr-caption {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
         }
 
         /* --- ПРАВАЯ ЧАСТЬ (Кассета и Плеер) --- */
@@ -212,43 +247,7 @@
                 text-align: center;
             }
             .logo { width: 300px; height: 300px; margin-left: 0; }
-        }
-                /* --- QR-код --- */
-        .qr-container {
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Выравнивание по левому краю */
-        }
-        .qr-image {
-            width: 160px;      /* Размер QR-кода */
-            height: 160px;
-            border-radius: 12px;
-            background-color: #ffffff; /* Белый фон для лучшего сканирования */
-            padding: 8px;      /* Отступы внутри белого квадрата */
-            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2); /* Легкая оранжевая тень в стиле сайта */
-            display: block;
-        }
-                /* Стили для QR-кода */
-        .qr-container {
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; 
-        }
-        .qr-image {
-            width: 160px;      
-            height: 160px;
-            border-radius: 12px;
-            background-color: #ffffff; 
-            padding: 8px;
-            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2); 
-            display: block;
-        }
-
-        /* Чтобы на телефоне QR был по центру */
-        @media (max-width: 1000px) {
-            .qr-container { align-items: center; }
+            .qr-row { justify-content: center; }
         }
     </style>
 </head>
@@ -263,21 +262,33 @@
             <div class="about-text">
                 <p><strong>TT Radio — твой личный портал в мир звука.</strong></p>
                 <p>Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.</p>
-                <p>Прямая ссылка для плеера на радио с поддержкой потокового вещания https://radio.tt-radio.netcraze.pro/TT_Radio.mp3 или </p> 
-                 <!-- 👇 ВСТАВИТЬ СЮДА 👇 -->
+                <p>Прямая ссылка для плеера на радио с поддержкой потокового вещания https://radio.tt-radio.netcraze.pro/TT_Radio.mp3 </p> 
+                
+                <!-- Кнопка скачивания плейлиста -->
                 <a href="TT_Radio.m3u" download class="m3u-btn">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                     Скачать плейлист для AIMP / VLC
                 </a>
-         </div>
+            </div>
 
             <button class="share-btn" onclick="shareSite()">
                 <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
                 Поделиться
             </button>
-                        <!-- QR-код под кнопкой Поделиться -->
-            <div class="qr-container">
-                <img src="qr.png" alt="QR-код TT Radio" class="qr-image">
+
+            <!-- Блок с QR-кодами в ряд -->
+            <div class="qr-row">
+                <!-- QR-код радио -->
+                <div class="qr-item">
+                    <img src="qr.png" alt="QR-код TT Radio" class="qr-image">
+                    <span class="qr-caption">Слушать</span>
+                </div>
+
+                <!-- QR-код доната -->
+                <div class="qr-item">
+                    <img src="Donate.png" alt="QR-код для доната" class="qr-image">
+                    <span class="qr-caption">Донат</span>
+                </div>
             </div>
         </div>
 
@@ -335,7 +346,6 @@
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
                 
-                // Добавляем класс для вращения
                 mainLogo.classList.add('playing'); 
                 playerContainer.classList.add('playing');
             } else {
@@ -344,7 +354,6 @@
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
                 
-                // Убираем класс. Логотип мгновенно возвращается в исходное положение (0 градусов)
                 mainLogo.classList.remove('playing'); 
                 playerContainer.classList.remove('playing');
             }
