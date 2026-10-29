@@ -41,12 +41,13 @@
             width: 600px; 
         }
 
-        /* БОЛЬШОЙ ЛОГОТИП (525px и сдвиг влево) */
+        /* БОЛЬШОЙ ЛОГОТИП (сдвиг влево и вверх) */
         .logo {
             width: 525px; 
             height: 525px; 
             border-radius: 50%;
-            margin-bottom: 10px;
+            margin-top: -40px;   /* Поднимаем логотип вверх */
+            margin-bottom: 0px;  /* Убираем лишний отступ снизу */
             margin-left: -120px; 
             object-fit: cover;
         }
@@ -64,6 +65,7 @@
             font-size: 16px;
             line-height: 1.6;
             color: #ccc;
+            margin-top: -10px; /* Прижимаем текст к логотипу */
         }
 
         .about-text p {
@@ -125,12 +127,12 @@
             gap: 5px;
         }
         .qr-image {
-            width: 130px;      /* Размер QR-кода */
-            height: 130px;
+            width: 150px;      /* Увеличенный размер QR-кода */
+            height: 150px;
             border-radius: 12px;
-            background-color: #ffffff; /* Белый фон для лучшего сканирования */
+            background-color: #ffffff; 
             padding: 6px;
-            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2); /* Легкая оранжевая тень */
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2); 
             display: block;
             transition: transform 0.2s;
         }
@@ -246,7 +248,8 @@
                 align-items: center;
                 text-align: center;
             }
-            .logo { width: 300px; height: 300px; margin-left: 0; }
+            .logo { width: 300px; height: 300px; margin-left: 0; margin-top: 0; }
+            .about-text { margin-top: 10px; }
             .qr-row { justify-content: center; }
         }
     </style>
@@ -287,7 +290,7 @@
                 <!-- QR-код доната -->
                 <div class="qr-item">
                     <img src="Donate.png" alt="QR-код для доната" class="qr-image">
-                    <span class="qr-caption">Донат</span>
+                    <span class="qr-caption">Донат (Сбер)</span> <!-- Подпись изменена -->
                 </div>
             </div>
         </div>
