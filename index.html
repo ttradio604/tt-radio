@@ -204,24 +204,6 @@
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: #ff6600; cursor: pointer; margin-top: -4px; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #333; border-radius: 2px; }
 
-        .show-info-container {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .show-header {
-            font-size: 12px;
-            color: #888;
-            text-transform: uppercase;
-            margin-bottom: 2px;
-            font-weight: bold;
-        }
-        .show-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ff6600;
-            text-transform: uppercase;
-        }
-
         .footer {
             text-align: center;
             padding: 20px;
@@ -309,10 +291,19 @@
                     <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
                 </div>
 
-                <!-- БЛОК ШОУ ПОД ГРОМКОСТЬЮ -->
-                <div class="show-info-container">
-                    <div class="show-header">РАДИО ШОУ</div>
-                    <div class="show-name" id="show-name"></div>
+                <!-- БЛОК РАСПИСАНИЯ ШОУ -->
+                <div class="show-info-container" style="text-align: center; margin-top: 15px; font-size: 12px; color: #aaa; line-height: 1.5; background: #111; padding: 15px; border-radius: 10px; border: 1px solid #333; width: 100%; box-sizing: border-box;">
+                    <div style="color: #ff6600; font-weight: bold; font-size: 16px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">📻 РАДИО ШОУ</div>
+                    <div style="text-align: left; display: inline-block;">
+                        <div id="sched-mon">Пн 19:00 — Бездна</div>
+                        <div id="sched-tue">Вт 19:00 — Overdrive</div>
+                        <div id="sched-wed">Ср 19:00 — TT Лаборатория Neformat</div>
+                        <div id="sched-thu">Чт 19:00 — Заповедник</div>
+                        <div id="sched-fri">Пт 19:00 — TT Goa Flight</div>
+                        <div id="sched-sat-am">Сб 08:00 — TT Autoparty (2 часа)</div>
+                        <div id="sched-sat-pm">Сб 19:00 — Тени</div>
+                        <div id="sched-sun">Вс 22:00 — Serenity</div>
+                    </div>
                 </div>
 
             </div>
@@ -383,44 +374,39 @@
         setInterval(fetchTrackInfo, 5000);
         fetchTrackInfo();
 
-        // --- СКРИПТ ДЛЯ РАСПИСАНИЯ ШОУ ---
+        // --- СКРИПТ ДЛЯ ПОДСВЕТКИ РАСПИСАНИЯ ---
         function updateShowInfo() {
             const now = new Date();
-            const day = now.getDay(); // 0=Вс, 1=Пн... 6=Сб
+            const day = now.getDay();
             const hours = now.getHours();
             
-            let showName = "";
-
-            const schedule = [
-                { day: 1, hour: 19, name: "Бездна" },
-                { day: 2, hour: 19, name: "Overdrive" },
-                { day: 3, hour: 19, name: "TT Лаборатория Neformat" },
-                { day: 4, hour: 19, name: "Заповедник" },
-                { day: 5, hour: 19, name: "TT Goa Flight" },
-                { day: 6, hour: 8, name: "TT Autoparty (2 часа)" },
-                { day: 6, hour: 19, name: "Тени" },
-                { day: 0, hour: 22, name: "Serenity" }
-            ];
-
-            for (let s of schedule) {
-                if (s.day === day && s.hour === hours) {
-                    showName = s.name;
-                    break;
+            // Сначала убираем подсветку со всех строк
+            const allShows = ['sched-mon', 'sched-tue', 'sched-wed', 'sched-thu', 'sched-fri', 'sched-sat-am', 'sched-sat-pm', 'sched-sun'];
+            allShows.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.style.color = '';
+                    el.style.fontWeight = 'normal';
                 }
-                if (s.name.includes("Autoparty") && s.day === day && hours === s.hour + 1) {
-                    showName = s.name;
-                    break;
-                }
-            }
+            });
 
-            const showDiv = document.getElementById('show-name');
-            if (showDiv) {
-                // Если шоу нет, скрываем весь блок
-                if (showName === "") {
-                    showDiv.parentElement.style.display = "none";
-                } else {
-                    showDiv.parentElement.style.display = "block";
-                    showDiv.innerText = showName;
+            let activeId = null;
+
+            if (day === 1 && hours === 19) activeId = 'sched-mon';
+            if (day === 2 && hours === 19) activeId = 'sched-tue';
+            if (day === 3 && hours === 19) activeId = 'sched-wed';
+            if (day === 4 && hours === 19) activeId = 'sched-thu';
+            if (day === 5 && hours === 19) activeId = 'sched-fri';
+            if (day === 6 && hours === 8) activeId = 'sched-sat-am';
+            if (day === 6 && hours === 9) activeId = 'sched-sat-am';
+            if (day === 6 && hours === 19) activeId = 'sched-sat-pm';
+            if (day === 0 && hours === 22) activeId = 'sched-sun';
+
+            if (activeId) {
+                const el = document.getElementById(activeId);
+                if (el) {
+                    el.style.color = '#ff6600';
+                    el.style.fontWeight = 'bold';
                 }
             }
         }
