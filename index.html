@@ -235,6 +235,26 @@
             font-size: 14px;
         }
 
+        /* Стили для блока шоу */
+        .show-info-container {
+            text-align: center;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        .show-header {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+        .show-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff6600;
+            text-transform: uppercase;
+        }
+
         /* --- ТЕЛЕФОНЫ --- */
         @media (max-width: 1000px) {
             .main-container {
@@ -303,6 +323,12 @@
                 <div class="on-air">
                     <div class="on-air-dot"></div> В эфире
                 </div>
+                
+                <div class="show-info-container">
+                    <div class="show-header">Радио шоу</div>
+                    <div class="show-name" id="show-name">Загрузка...</div>
+                </div>
+
                 <div class="track-label">Сейчас играет</div>
                 <div class="track-title" id="track-title">Загрузка...</div>
                 
@@ -392,6 +418,45 @@
 
         setInterval(fetchTrackInfo, 5000);
         fetchTrackInfo();
+
+        // --- СКРИПТ ДЛЯ ОТОБРАЖЕНИЯ РАСПИСАНИЯ ШОУ ---
+        function updateShowInfo() {
+            const now = new Date();
+            const day = now.getDay(); // 0=Вс, 1=Пн... 6=Сб
+            const hours = now.getHours();
+            
+            let showName = "Основной эфир";
+
+            const schedule = [
+                { day: 1, hour: 19, name: "Бездна" },
+                { day: 2, hour: 19, name: "Overdrive" },
+                { day: 3, hour: 19, name: "TT Лаборатория Neformat" },
+                { day: 4, hour: 19, name: "Заповедник" },
+                { day: 5, hour: 19, name: "TT Goa Flight" },
+                { day: 6, hour: 8, name: "TT Autoparty (2 часа)" },
+                { day: 6, hour: 19, name: "Тени" },
+                { day: 0, hour: 22, name: "Serenity" }
+            ];
+
+            for (let s of schedule) {
+                if (s.day === day && s.hour === hours) {
+                    showName = s.name;
+                    break;
+                }
+                if (s.name.includes("Autoparty") && s.day === day && hours === s.hour + 1) {
+                    showName = s.name;
+                    break;
+                }
+            }
+
+            const showDiv = document.getElementById('show-name');
+            if (showDiv) {
+                showDiv.innerText = showName;
+            }
+        }
+
+        updateShowInfo();
+        setInterval(updateShowInfo, 60000);
     </script>
 
 </body>
