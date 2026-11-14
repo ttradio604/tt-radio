@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TT Radio - Trance from Keenetic</title>
     <style>
-        /* Строго черный фон */
         body {
             background-color: #000000; 
             color: white;
@@ -18,7 +17,6 @@
             justify-content: space-between; 
         }
 
-        /* Главный контейнер */
         .main-container {
             display: flex;
             flex-direction: row;
@@ -32,7 +30,6 @@
             flex: 1;
         }
 
-        /* --- ЛЕВАЯ ЧАСТЬ (Лого и Текст) --- */
         .left-section {
             display: flex;
             flex-direction: column;
@@ -41,36 +38,26 @@
             width: 600px; 
         }
 
-        /* БОЛЬШОЙ ЛОГОТИП (сдвиг влево и вверх) */
         .logo {
             width: 525px; 
             height: 525px; 
             border-radius: 50%;
-            margin-top: -40px;   /* Поднимаем логотип вверх */
-            margin-bottom: 0px;  /* Убираем лишний отступ снизу */
+            margin-top: -40px;
+            margin-bottom: 0px;
             margin-left: -120px; 
             object-fit: cover;
         }
 
-        /* Класс, который добавляет вращение при нажатии Play */
-        .logo.playing {
-            animation: spin 8s linear infinite;
-        }
-
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
+        .logo.playing { animation: spin 8s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         .about-text {
             font-size: 16px;
             line-height: 1.6;
             color: #ccc;
-            margin-top: -10px; /* Прижимаем текст к логотипу */
+            margin-top: -10px;
         }
-
-        .about-text p {
-            margin: 0 0 15px 0; 
-        }
+        .about-text p { margin: 0 0 15px 0; }
 
         .share-btn {
             display: inline-flex;
@@ -90,7 +77,6 @@
         .share-btn:hover { background-color: #ff6600; color: #fff; }
         .share-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-        /* Кнопка скачивания плейлиста */
         .m3u-btn {
             display: inline-flex;
             align-items: center;
@@ -112,7 +98,6 @@
             color: #ff6600;
         }
 
-        /* --- Блок с QR-кодами в ряд --- */
         .qr-row {
             display: flex;
             flex-direction: row;
@@ -127,7 +112,7 @@
             gap: 5px;
         }
         .qr-image {
-            width: 150px;      /* Увеличенный размер QR-кода */
+            width: 150px;
             height: 150px;
             border-radius: 12px;
             background-color: #ffffff; 
@@ -136,9 +121,7 @@
             display: block;
             transition: transform 0.2s;
         }
-        .qr-image:hover {
-            transform: scale(1.05);
-        }
+        .qr-image:hover { transform: scale(1.05); }
         .qr-caption {
             font-size: 12px;
             color: #888;
@@ -147,7 +130,6 @@
             font-weight: bold;
         }
 
-        /* --- ПРАВАЯ ЧАСТЬ (Кассета и Плеер) --- */
         .right-section {
             display: flex;
             flex-direction: column;
@@ -156,14 +138,12 @@
             width: 600px;
         }
 
-        /* Кассета */
         .cassette-img {
             width: 100%;
             height: auto;
             border-radius: 15px;
         }
 
-        /* Плеер */
         .player-box {
             text-align: center;
             display: flex;
@@ -198,7 +178,6 @@
         .track-label { font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 5px; }
         .track-title { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 15px; min-height: 30px; }
 
-        /* Кнопка Play */
         .play-btn {
             background: linear-gradient(135deg, #ff6600, #ff3300);
             border: none; width: 70px; height: 70px; border-radius: 50%;
@@ -210,7 +189,6 @@
         .play-btn svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
         .play-btn.playing svg { margin-left: 0; }
 
-        /* Визуальный эквалайзер */
         .equalizer { display: flex; gap: 5px; height: 25px; align-items: flex-end; justify-content: center; margin-bottom: 15px; }
         .bar { width: 6px; background-color: #ff6600; border-radius: 3px; height: 5px; }
         .playing .bar:nth-child(1) { animation: bounce 0.8s ease-in-out infinite alternate; }
@@ -220,26 +198,15 @@
         .playing .bar:nth-child(5) { animation: bounce 0.5s ease-in-out infinite alternate 0.3s; }
         @keyframes bounce { 0% { height: 5px; } 100% { height: 25px; } }
 
-        /* Громкость */
-        .volume-control { display: flex; align-items: center; gap: 10px; color: #888; }
+        .volume-control { display: flex; align-items: center; gap: 10px; color: #888; margin-bottom: 20px; }
         .volume-control svg { width: 18px; height: 18px; fill: #888; }
         input[type=range] { -webkit-appearance: none; width: 100px; background: transparent; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: #ff6600; cursor: pointer; margin-top: -4px; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #333; border-radius: 2px; }
 
-        /* --- ФУТЕР --- */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #555;
-            font-size: 14px;
-        }
-
-        /* Стили для блока шоу */
         .show-info-container {
             text-align: center;
-            margin-bottom: 5px;
-            margin-top: 5px;
+            margin-top: 10px;
         }
         .show-header {
             font-size: 12px;
@@ -249,13 +216,19 @@
             font-weight: bold;
         }
         .show-name {
-            font-size: 16px;
+            font-size: 20px;
             font-weight: bold;
             color: #ff6600;
             text-transform: uppercase;
         }
 
-        /* --- ТЕЛЕФОНЫ --- */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+            font-size: 14px;
+        }
+
         @media (max-width: 1000px) {
             .main-container {
                 flex-direction: column;
@@ -278,7 +251,6 @@
 
     <div class="main-container">
         
-        <!-- ЛЕВАЯ ЧАСТЬ -->
         <div class="left-section">
             <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo" id="main-logo">
             
@@ -287,7 +259,6 @@
                 <p>Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.</p>
                 <p>Прямая ссылка для плеера на радио с поддержкой потокового вещания https://radio.tt-radio.netcraze.pro/TT_Radio.mp3 </p> 
                 
-                <!-- Кнопка скачивания плейлиста -->
                 <a href="TT_Radio.m3u" download class="m3u-btn">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                     Скачать плейлист для AIMP / VLC
@@ -299,34 +270,24 @@
                 Поделиться
             </button>
 
-            <!-- Блок с QR-кодами в ряд -->
             <div class="qr-row">
-                <!-- QR-код радио -->
                 <div class="qr-item">
                     <img src="qr.png" alt="QR-код TT Radio" class="qr-image">
                     <span class="qr-caption">Слушать</span>
                 </div>
-
-                <!-- QR-код доната -->
                 <div class="qr-item">
                     <img src="Donate.png" alt="QR-код для доната" class="qr-image">
-                    <span class="qr-caption">Донат (Сбер)</span> <!-- Подпись изменена -->
+                    <span class="qr-caption">Донат (Сбер)</span>
                 </div>
             </div>
         </div>
 
-        <!-- ПРАВАЯ ЧАСТЬ -->
         <div class="right-section">
             <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
             
             <div class="player-box" id="player-container">
                 <div class="on-air">
                     <div class="on-air-dot"></div> В эфире
-                </div>
-                
-                <div class="show-info-container">
-                    <div class="show-header">Радио шоу</div>
-                    <div class="show-name" id="show-name">Загрузка...</div>
                 </div>
 
                 <div class="track-label">Сейчас играет</div>
@@ -347,17 +308,22 @@
                     <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                     <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
                 </div>
+
+                <!-- БЛОК ШОУ ПОД ГРОМКОСТЬЮ -->
+                <div class="show-info-container">
+                    <div class="show-header">РАДИО ШОУ</div>
+                    <div class="show-name" id="show-name"></div>
+                </div>
+
             </div>
         </div>
 
     </div>
 
-    <!-- ФУТЕР -->
     <footer class="footer">
         © 2026 TT Radio. Все права защищены.18+
     </footer>
 
-    <!-- Скрипт плеера -->
     <script>
         const audio = document.getElementById('radio-stream');
         const playBtn = document.getElementById('play-button');
@@ -374,7 +340,6 @@
                 playIcon.style.display = 'none';
                 pauseIcon.style.display = 'block';
                 playBtn.classList.add('playing');
-                
                 mainLogo.classList.add('playing'); 
                 playerContainer.classList.add('playing');
             } else {
@@ -382,7 +347,6 @@
                 playIcon.style.display = 'block';
                 pauseIcon.style.display = 'none';
                 playBtn.classList.remove('playing');
-                
                 mainLogo.classList.remove('playing'); 
                 playerContainer.classList.remove('playing');
             }
@@ -419,13 +383,13 @@
         setInterval(fetchTrackInfo, 5000);
         fetchTrackInfo();
 
-        // --- СКРИПТ ДЛЯ ОТОБРАЖЕНИЯ РАСПИСАНИЯ ШОУ ---
+        // --- СКРИПТ ДЛЯ РАСПИСАНИЯ ШОУ ---
         function updateShowInfo() {
             const now = new Date();
             const day = now.getDay(); // 0=Вс, 1=Пн... 6=Сб
             const hours = now.getHours();
             
-            let showName = "Основной эфир";
+            let showName = "";
 
             const schedule = [
                 { day: 1, hour: 19, name: "Бездна" },
@@ -451,7 +415,13 @@
 
             const showDiv = document.getElementById('show-name');
             if (showDiv) {
-                showDiv.innerText = showName;
+                // Если шоу нет, скрываем весь блок
+                if (showName === "") {
+                    showDiv.parentElement.style.display = "none";
+                } else {
+                    showDiv.parentElement.style.display = "block";
+                    showDiv.innerText = showName;
+                }
             }
         }
 
