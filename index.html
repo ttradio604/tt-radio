@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TT Radio - Trance from Keenetic</title>
+    <title>TT Radio - Trance</title>
     <style>
         body {
             background-color: #000000; 
@@ -239,7 +239,9 @@
             <div class="about-text">
                 <p><strong>TT Radio — твой личный портал в мир звука.</strong></p>
                 <p>Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.</p>
-                <p>Прямая ссылка для плеера на радио с поддержкой потокового вещания https://radio.tt-radio.netcraze.pro/TT_Radio.mp3 </p> 
+                <p>Прямая ссылка для плеера на радио с поддержкой потокового вещания: 
+                    <a href="https://radio.tt-radio.netcraze.pro/TT_Radio.mp3" style="color:#ff6600;">https://radio.tt-radio.netcraze.pro/TT_Radio.mp3</a>
+                </p> 
                 
                 <a href="TT_Radio.m3u" download class="m3u-btn">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -313,7 +315,7 @@
     </div>
 
     <footer class="footer">
-        © 2026 TT Radio. Все права защищены.18+
+        © 2026 TT Radio. Все права защищены. 18+
     </footer>
 
     <script>
@@ -357,7 +359,7 @@
         }
 
         function fetchTrackInfo() {
-            fetch('https://radio.tt-radio.netcraze.pro/status-json.xsl')
+            fetch('https://radio.tt-radio.netcraze.pro/TT_Radio/status-json.xsl')
                 .then(response => response.json())
                 .then(data => {
                     try {
@@ -381,7 +383,6 @@
             const day = now.getDay();
             const hours = now.getHours();
             
-            // Сначала убираем подсветку со всех строк
             const allShows = ['sched-mon', 'sched-tue', 'sched-wed', 'sched-thu', 'sched-fri', 'sched-sat-am', 'sched-sat-pm', 'sched-sun'];
             allShows.forEach(id => {
                 const el = document.getElementById(id);
