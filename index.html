@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TT Radio - Trance from Keenetic</title>
+    <title>TT Radio - Trance</title>
     <style>
+        /* Строго черный фон */
         body {
             background-color: #000000; 
             color: white;
@@ -17,6 +18,7 @@
             justify-content: space-between; 
         }
 
+        /* Главный контейнер */
         .main-container {
             display: flex;
             flex-direction: row;
@@ -30,6 +32,7 @@
             flex: 1;
         }
 
+        /* --- ЛЕВАЯ ЧАСТЬ (Лого и Текст) --- */
         .left-section {
             display: flex;
             flex-direction: column;
@@ -38,26 +41,36 @@
             width: 600px; 
         }
 
+        /* БОЛЬШОЙ ЛОГОТИП (сдвиг влево и вверх) */
         .logo {
             width: 525px; 
             height: 525px; 
             border-radius: 50%;
-            margin-top: -40px;
-            margin-bottom: 0px;
+            margin-top: -40px;   /* Поднимаем логотип вверх */
+            margin-bottom: 0px;  /* Убираем лишний отступ снизу */
             margin-left: -120px; 
             object-fit: cover;
         }
 
-        .logo.playing { animation: spin 8s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* Класс, который добавляет вращение при нажатии Play */
+        .logo.playing {
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
 
         .about-text {
             font-size: 16px;
             line-height: 1.6;
             color: #ccc;
-            margin-top: -10px;
+            margin-top: -10px; /* Прижимаем текст к логотипу */
         }
-        .about-text p { margin: 0 0 15px 0; }
+
+        .about-text p {
+            margin: 0 0 15px 0; 
+        }
 
         .share-btn {
             display: inline-flex;
@@ -77,6 +90,7 @@
         .share-btn:hover { background-color: #ff6600; color: #fff; }
         .share-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
+        /* Кнопка скачивания плейлиста */
         .m3u-btn {
             display: inline-flex;
             align-items: center;
@@ -98,6 +112,7 @@
             color: #ff6600;
         }
 
+        /* --- Блок с QR-кодами в ряд --- */
         .qr-row {
             display: flex;
             flex-direction: row;
@@ -112,7 +127,7 @@
             gap: 5px;
         }
         .qr-image {
-            width: 150px;
+            width: 150px;      /* Увеличенный размер QR-кода */
             height: 150px;
             border-radius: 12px;
             background-color: #ffffff; 
@@ -121,7 +136,9 @@
             display: block;
             transition: transform 0.2s;
         }
-        .qr-image:hover { transform: scale(1.05); }
+        .qr-image:hover {
+            transform: scale(1.05);
+        }
         .qr-caption {
             font-size: 12px;
             color: #888;
@@ -130,6 +147,7 @@
             font-weight: bold;
         }
 
+        /* --- ПРАВАЯ ЧАСТЬ (Кассета и Плеер) --- */
         .right-section {
             display: flex;
             flex-direction: column;
@@ -138,12 +156,14 @@
             width: 600px;
         }
 
+        /* Кассета */
         .cassette-img {
             width: 100%;
             height: auto;
             border-radius: 15px;
         }
 
+        /* Плеер */
         .player-box {
             text-align: center;
             display: flex;
@@ -178,6 +198,7 @@
         .track-label { font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 5px; }
         .track-title { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 15px; min-height: 30px; }
 
+        /* Кнопка Play */
         .play-btn {
             background: linear-gradient(135deg, #ff6600, #ff3300);
             border: none; width: 70px; height: 70px; border-radius: 50%;
@@ -189,4 +210,189 @@
         .play-btn svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
         .play-btn.playing svg { margin-left: 0; }
 
-        .equalizer { display: flex; gap: 5px;
+        /* Визуальный эквалайзер */
+        .equalizer { display: flex; gap: 5px; height: 25px; align-items: flex-end; justify-content: center; margin-bottom: 15px; }
+        .bar { width: 6px; background-color: #ff6600; border-radius: 3px; height: 5px; }
+        .playing .bar:nth-child(1) { animation: bounce 0.8s ease-in-out infinite alternate; }
+        .playing .bar:nth-child(2) { animation: bounce 0.6s ease-in-out infinite alternate 0.2s; }
+        .playing .bar:nth-child(3) { animation: bounce 0.9s ease-in-out infinite alternate 0.4s; }
+        .playing .bar:nth-child(4) { animation: bounce 0.7s ease-in-out infinite alternate 0.1s; }
+        .playing .bar:nth-child(5) { animation: bounce 0.5s ease-in-out infinite alternate 0.3s; }
+        @keyframes bounce { 0% { height: 5px; } 100% { height: 25px; } }
+
+        /* Громкость */
+        .volume-control { display: flex; align-items: center; gap: 10px; color: #888; }
+        .volume-control svg { width: 18px; height: 18px; fill: #888; }
+        input[type=range] { -webkit-appearance: none; width: 100px; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: #ff6600; cursor: pointer; margin-top: -4px; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #333; border-radius: 2px; }
+
+        /* --- ФУТЕР --- */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* --- ТЕЛЕФОНЫ --- */
+        @media (max-width: 1000px) {
+            .main-container {
+                flex-direction: column;
+                padding: 20px;
+                gap: 40px;
+                align-items: center;
+            }
+            .left-section, .right-section {
+                width: 100%;
+                align-items: center;
+                text-align: center;
+            }
+            .logo { width: 300px; height: 300px; margin-left: 0; margin-top: 0; }
+            .about-text { margin-top: 10px; }
+            .qr-row { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <!-- ЛЕВАЯ ЧАСТЬ -->
+        <div class="left-section">
+            <img src="TT%20Radio%20logo.png" alt="TT Radio Logo" class="logo" id="main-logo">
+            
+            <div class="about-text">
+                <p><strong>TT Radio — твой личный портал в мир звука.</strong></p>
+                <p>Забудь о суете, надень наушники и позволь ритму вести тебя сквозь пространство и время.</p>
+                <p>Прямая ссылка для плеера на радио с поддержкой потокового вещания http://191.44.49.35:8000/TT_Radio.mp3 </p> 
+                
+                <!-- Кнопка скачивания плейлиста -->
+                <a href="TT_Radio.m3u" download class="m3u-btn">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    Скачать плейлист для AIMP / VLC
+                </a>
+            </div>
+
+            <button class="share-btn" onclick="shareSite()">
+                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+                Поделиться
+            </button>
+
+            <!-- Блок с QR-кодами в ряд -->
+            <div class="qr-row">
+                <!-- QR-код радио -->
+                <div class="qr-item">
+                    <img src="qr.png" alt="QR-код TT Radio" class="qr-image">
+                    <span class="qr-caption">Слушать</span>
+                </div>
+
+                <!-- QR-код доната -->
+                <div class="qr-item">
+                    <img src="Donate.png" alt="QR-код для доната" class="qr-image">
+                    <span class="qr-caption">Донат (Сбер)</span> <!-- Подпись изменена -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ПРАВАЯ ЧАСТЬ -->
+        <div class="right-section">
+            <img src="TT%20Radio%20fon%201.png" alt="TT Radio Banner" class="cassette-img">
+            
+            <div class="player-box" id="player-container">
+                <div class="on-air">
+                    <div class="on-air-dot"></div> В эфире
+                </div>
+                <div class="track-label">Сейчас играет</div>
+                <div class="track-title" id="track-title">Загрузка...</div>
+                
+                <audio id="radio-stream" src="http://191.44.49.35:8000/TT_Radio.mp3" preload="none"></audio>
+                
+                <button class="play-btn" id="play-button">
+                    <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+
+                <div class="equalizer">
+                    <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                </div>
+
+                <div class="volume-control">
+                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ФУТЕР -->
+    <footer class="footer">
+        © 2026 TT Radio. Все права защищены.
+    </footer>
+
+    <!-- Скрипт плеера -->
+    <script>
+        const audio = document.getElementById('radio-stream');
+        const playBtn = document.getElementById('play-button');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const trackTitle = document.getElementById('track-title');
+        const volumeSlider = document.getElementById('volume-slider');
+        const mainLogo = document.getElementById('main-logo'); 
+        const playerContainer = document.getElementById('player-container');
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(e => console.log("Ошибка:", e));
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+                playBtn.classList.add('playing');
+                
+                mainLogo.classList.add('playing'); 
+                playerContainer.classList.add('playing');
+            } else {
+                audio.pause();
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+                playBtn.classList.remove('playing');
+                
+                mainLogo.classList.remove('playing'); 
+                playerContainer.classList.remove('playing');
+            }
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            audio.volume = e.target.value;
+        });
+
+        function shareSite() {
+            if (navigator.share) {
+                navigator.share({ title: 'TT Radio', url: window.location.href }).catch(console.error);
+            } else {
+                alert('Скопируй ссылку: ' + window.location.href);
+            }
+        }
+
+        function fetchTrackInfo() {
+            fetch('http://191.44.49.35:8000/status-json.xsl')
+                .then(response => response.json())
+                .then(data => {
+                    try {
+                        let title = data.icestats.source.title;
+                        trackTitle.innerText = (title && title !== "Unknown") ? title : "TT Radio Live";
+                    } catch (e) {
+                        trackTitle.innerText = "TT Radio Live";
+                    }
+                })
+                .catch(error => {
+                    trackTitle.innerText = "TT Radio Live";
+                });
+        }
+
+        setInterval(fetchTrackInfo, 5000);
+        fetchTrackInfo();
+    </script>
+
+</body>
+</html>
