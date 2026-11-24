@@ -406,14 +406,32 @@
                 .then(response => response.json())
                 .then(data => {
                     try {
-                        let title = data.icestats.source.title;
-                        trackTitle.innerText = (title && title !== "Unknown") ? title : "TT Radio Live";
+                        let sources = data.icestats.source;
+
+                        if (!Array.isArray(sources)) {
+                            sources = [sources];
+                        }
+
+                        let source = sources.find(s =>
+                            s.listenurl && s.listenurl.includes('TT_Radio_192.mp3')
+                        );
+
+                        if (!source) {
+                            source = sources.find(s =>
+                                s.listenurl && s.listenurl.includes('TT_Radio.mp3')
+                            );
+                        }
+
+                        let title = source ? source.title : '';
+
+                        trackTitle.innerText =
+                            (title && title !== 'Unknown') ? title : 'TT Radio Live';
                     } catch (e) {
-                        trackTitle.innerText = "TT Radio Live";
+                        trackTitle.innerText = 'TT Radio Live';
                     }
                 })
                 .catch(error => {
-                    trackTitle.innerText = "TT Radio Live";
+                    trackTitle.innerText = 'TT Radio Live';
                 });
         }
 
