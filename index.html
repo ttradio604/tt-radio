@@ -401,41 +401,6 @@
             }
         }
 
-        function highlightShow(title) {
-            const shows = {
-                'бездна': 'sched-mon',
-                'overdrive': 'sched-tue',
-                'tt лаборатория neformat': 'sched-wed',
-                'заповедник': 'sched-thu',
-                'tt goa flight': 'sched-fri',
-                'tt autoparty': 'sched-sat-am',
-                'тени': 'sched-sat-pm',
-                'serenity': 'sched-sun'
-            };
-
-            document.querySelectorAll('[id^="sched-"]').forEach(el => {
-                el.style.color = '';
-                el.style.fontWeight = '';
-            });
-
-            if (!title) return;
-
-            const text = title.toLowerCase();
-
-            for (const name in shows) {
-                if (text.includes(name)) {
-                    const el = document.getElementById(shows[name]);
-
-                    if (el) {
-                        el.style.color = '#ff6600';
-                        el.style.fontWeight = 'bold';
-                    }
-
-                    break;
-                }
-            }
-        }
-
         function fetchTrackInfo() {
             fetch('https://ttradio.ru/radio/status-json.xsl')
                 .then(response => response.json())
@@ -443,20 +408,68 @@
                     try {
                         let title = data.icestats.source.title;
                         trackTitle.innerText = (title && title !== "Unknown") ? title : "TT Radio Live";
-                        highlightShow(title);
                     } catch (e) {
                         trackTitle.innerText = "TT Radio Live";
-                        highlightShow('');
                     }
                 })
                 .catch(error => {
                     trackTitle.innerText = "TT Radio Live";
-                    highlightShow('');
                 });
+        }
+
+        function updateShowInfo() {
+            const now = new Date();
+            const day = now.getDay();
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            const time = hour + minute / 60;
+
+            const allShows = [
+                'sched-mon',
+                'sched-tue',
+                'sched-wed',
+                'sched-thu',
+                'sched-fri',
+                'sched-sat-am',
+                'sched-sat-pm',
+                'sched-sun'
+            ];
+
+            allShows.forEach(id => {
+                const el = document.getElementById(id);
+
+                if (el) {
+                    el.style.color = '';
+                    el.style.fontWeight = 'normal';
+                }
+            });
+
+            let activeId = null;
+
+            if (day === 1 && time >= 19 && time < 20) activeId = 'sched-mon';
+            if (day === 2 && time >= 19 && time < 20) activeId = 'sched-tue';
+            if (day === 3 && time >= 19 && time < 20) activeId = 'sched-wed';
+            if (day === 4 && time >= 19 && time < 20) activeId = 'sched-thu';
+            if (day === 5 && time >= 19 && time < 20) activeId = 'sched-fri';
+            if (day === 6 && time >= 8 && time < 10) activeId = 'sched-sat-am';
+            if (day === 6 && time >= 19 && time < 20) activeId = 'sched-sat-pm';
+            if (day === 0 && time >= 22 && time < 23) activeId = 'sched-sun';
+
+            if (activeId) {
+                const el = document.getElementById(activeId);
+
+                if (el) {
+                    el.style.color = '#ff6600';
+                    el.style.fontWeight = 'bold';
+                }
+            }
         }
 
         setInterval(fetchTrackInfo, 5000);
         fetchTrackInfo();
+
+        updateShowInfo();
+        setInterval(updateShowInfo, 30000);
     </script>
 
 </body>
