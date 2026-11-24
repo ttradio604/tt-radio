@@ -401,6 +401,41 @@
             }
         }
 
+        function highlightShow(title) {
+            const shows = {
+                'бездна': 'sched-mon',
+                'overdrive': 'sched-tue',
+                'tt лаборатория neformat': 'sched-wed',
+                'заповедник': 'sched-thu',
+                'tt goa flight': 'sched-fri',
+                'tt autoparty': 'sched-sat-am',
+                'тени': 'sched-sat-pm',
+                'serenity': 'sched-sun'
+            };
+
+            document.querySelectorAll('[id^="sched-"]').forEach(el => {
+                el.style.color = '';
+                el.style.fontWeight = '';
+            });
+
+            if (!title) return;
+
+            const text = title.toLowerCase();
+
+            for (const name in shows) {
+                if (text.includes(name)) {
+                    const el = document.getElementById(shows[name]);
+
+                    if (el) {
+                        el.style.color = '#ff6600';
+                        el.style.fontWeight = 'bold';
+                    }
+
+                    break;
+                }
+            }
+        }
+
         function fetchTrackInfo() {
             fetch('https://ttradio.ru/radio/status-json.xsl')
                 .then(response => response.json())
@@ -408,12 +443,15 @@
                     try {
                         let title = data.icestats.source.title;
                         trackTitle.innerText = (title && title !== "Unknown") ? title : "TT Radio Live";
+                        highlightShow(title);
                     } catch (e) {
                         trackTitle.innerText = "TT Radio Live";
+                        highlightShow('');
                     }
                 })
                 .catch(error => {
                     trackTitle.innerText = "TT Radio Live";
+                    highlightShow('');
                 });
         }
 
